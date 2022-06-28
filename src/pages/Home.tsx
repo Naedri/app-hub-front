@@ -1,6 +1,3 @@
-import MessageListItem from '../components/MessageListItem';
-import { useState } from 'react';
-import { Message, getMessages } from '../data/messages';
 import {
   IonContent,
   IonHeader,
@@ -12,6 +9,12 @@ import {
   IonToolbar,
   useIonViewWillEnter
 } from '@ionic/react';
+import { useState } from 'react';
+
+import MessageListItem from '../components/MessageListItem';
+import type { Message} from '../data/messages';
+import { getMessages } from '../data/messages';
+
 import './Home.css';
 
 const Home: React.FC = () => {
