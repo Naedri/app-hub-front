@@ -1,0 +1,52 @@
+{
+    "artificialDelayMilliseconds": 5000,
+    "keepExistingTerminalsOpen": false,
+    "runOnStartup": true,
+    "terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "client",
+                    "commands": [
+                        "clear ; ionic serve --consolelogs"
+                    ],
+                    "shouldRunCommands": false
+                },
+                {
+                    "name": "server",
+                    "commands": [
+                        "cd ../ms-users-back ; clear ; npm run start:prod"
+                    ],
+                    "shouldRunCommands": false
+                }
+            ]
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "cmd",
+                    "commands": [
+                        "clear",
+                        "ls"
+                    ],
+                    "shouldRunCommands": true
+                },
+                {
+                    "name": "test",
+                    "commands": [
+                        "clear ; npm run test"
+                    ],
+                    "shouldRunCommands": false
+                },
+                {
+                    "name": "git",
+                    "commands": [
+                        "clear",
+                        "git status"
+                    ],
+                    "shouldRunCommands": true
+                }
+            ]
+        }
+    ]
+}
