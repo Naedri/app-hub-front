@@ -1,10 +1,10 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ms-users-front',
+  appId: 'com.ms-users.app',
+  appName: 'ms-users',
   webDir: 'build',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
 };
 
 export default config;
