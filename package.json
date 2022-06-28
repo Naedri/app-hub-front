@@ -79,7 +79,7 @@
         "prettier": "prettier \"**/*.ts\"",
         "resources": "cordova-res android && cordova-res ios && node scripts/resources.js",
         "start": "react-scripts start",
-        "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
+        "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)\"",
         "test:simple": "react-scripts test",
         "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
     },
