@@ -51,21 +51,36 @@
     },
     "description": "An Ionic project",
     "devDependencies": {
-        "@capacitor/cli": "3.5.1"
+        "@capacitor/cli": "3.5.1",
+        "@ionic/eslint-config": "^0.3.0",
+        "@ionic/prettier-config": "^2.0.0",
+        "eslint": "^7.32.0",
+        "husky": "^8.0.1",
+        "prettier": "^2.6.2"
     },
     "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+        "extends": "@ionic/eslint-config/recommended"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint"
+        }
     },
     "name": "ms-users-front",
+    "prettier": "@ionic/prettier-config",
     "private": true,
     "scripts": {
         "build": "react-scripts build",
         "eject": "react-scripts eject",
+        "eslint": "eslint --ext .tsx,.ts .",
+        "format": "npm run eslint -- --fix && npm run prettier -- --write",
+        "lint": "npm run eslint && npm run prettier -- --check",
+        "prettier": "prettier \"**/*.ts\"",
+        "resources": "cordova-res android && cordova-res ios && node scripts/resources.js",
         "start": "react-scripts start",
-        "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'"
+        "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
+        "test:simple": "react-scripts test",
+        "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
