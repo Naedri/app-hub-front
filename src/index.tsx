@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
+// import i18 (needs to be in the index file / bundled)
+import './services/i18';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

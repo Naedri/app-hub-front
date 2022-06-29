@@ -46,3 +46,52 @@ _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-st
 ### iOS
 
 1. Run `ionic cordova run ios --prod`
+
+## Translation
+
+This app aims to support internationalization, thanks to [i18next](https://www.i18next.com/). A crash course is available on [YouTube](https://www.youtube.com/watch?v=SA_9i4TtxLQ).
+
+### how to configure it ?
+
+```ts
+i18.init({
+  fallbackNS: 'common', // common namespaces will be used none is indicated
+  resources: {
+    en: {
+      translation: {
+        // Here common, friendly and error are defined as namespaces
+        common: {
+          validation: 'OK',
+          cancel: 'Cancel',
+        },
+        friendly: {
+          validation: "Let's go",
+          cancel: 'Stop',
+        },
+        error: {
+          404: 'Not found',
+          unknown: 'Some strange thing happened',
+        },
+        proposition: '{{subject}} is {{predicate}}.',
+        app_one: 'an app',
+        app_other: '{{count}} apps',
+        app_zero: 'no app',
+        cake_other: '{{count, number}} cakes', //  "key": "Some format {{value, formatName}}",
+      },
+    },
+  },
+});
+```
+
+### how to use it ?
+
+```ts
+let sentence = i18n.t('key');
+sentence = i18n.t('validation'); // => 'OK' from 'common' namespace as it is the fallbackNS
+sentence = i18n.t('validation', { ns: 'friendly' }); // => 'Let's go' from 'friendly' namespace
+sentence = i18n.t(`error.${code}`, 'error.unknown');
+sentence = i18n.t('proposition', { what: 'David', predicate: 'awesome' });
+sentence = i18n.t('proposition', { what: 'David', predicate: 'awesome' });
+sentence = i18n.t('app', { count: 4 });
+sentence = i18n.t('cake', { count: 10000 }); // => 10,000
+```
