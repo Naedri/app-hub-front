@@ -1,6 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { [FTName % pascalcase] } from './[FTName % pascalcase]';
+import * as React from 'react';
+
+import [FTName % pascalcase] from './[FTName % pascalcase]';
 
 describe(' [FTName % lowercase] specs', () => {
   it('should render as expected when passing required properties', () => {
