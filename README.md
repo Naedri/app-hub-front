@@ -21,12 +21,13 @@ To display protected url of applications from your amazing company.
 
 ## Getting Started
 
-* [Download the installer](https://nodejs.org/) for Node LTS.
-* Install the ionic CLI globally: `npm install -g ionic`
-* Clone this repository with `git clone`.
-* Run `npm install` from the project root.
-* Run `ionic serve` in a terminal from the project root.
-* Profit. :tada:
+- [Download the installer](https://nodejs.org/) for Node LTS.
+- Install the ionic CLI globally: `npm install -g ionic`
+- Clone this repository with `git clone`.
+- Run `npm install` from the project root.
+- Add, at the root level of the project an completed _.env_ file from the _.env.example_ file.
+- Run `ionic serve` in a terminal from the project root.
+- Profit. :tada:
 
 _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-started/fixing-npm-permissions) if you are running into issues when trying to install packages globally._
 
