@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import Form from '../../components/Form';
 import { login } from '../../services/rest/auth';
-import type { ErrorClient } from '../../utils/interfaces/error';
+import type { ErrorFromServer } from '../../utils/interfaces/error';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,7 +22,7 @@ import './Login.module.css';
 
 function Login(): JSX.Element {
   const [loading, setLoading] = useState(false);
-  const [logError, setError] = useState<ErrorClient | null>(null);
+  const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
 
   const { t } = useTranslation();
