@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
+import Loader from './components/Loader';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
@@ -10,7 +11,9 @@ import './services/i18';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Suspense fallback={<Loader />}>
+      <App />
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );

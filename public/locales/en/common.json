@@ -1,0 +1,8 @@
+{
+    "validation": "OK",
+    "cancel": "Cancel",
+    "loading": "Loading",
+    "redirecting": "Redirecting {{preposition}} {{somewhere}}",
+    "to": "to",
+    "tryAgain": "Please try again."
+}

@@ -16,6 +16,7 @@
         ".git", // Ignore the .git directory
         "package-lock.json", // Ignore the package-lock.json file
         "package.json", // Ignore the package.json file
+        "public/locales"
     ],
     "folderTemplates.templateFolderPath": "./.vscode/fttemplates",
 }
