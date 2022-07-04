@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonInput, IonPage, IonRouterLink } from '@ionic/react';
+import { IonButton, IonCard, IonContent, IonInput, IonLabel, IonList, IonPage, IonRouterLink } from '@ionic/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -54,17 +54,27 @@ function Login(): JSX.Element {
       <Header pageTitle="Login" i18n={i18n} t={t}></Header>
       <IonContent fullscreen>
         <Form onSubmit={signInUser}>
-          <IonInput id="email" type="email" name="email" placeholder={t('emailExample')} required />
-          <IonInput id="password" type="password" name="password" placeholder={t('passwordExample')} required />
+          <IonList>
+            <IonCard>
+              <IonLabel> Email </IonLabel>
+              <IonInput id="email" type="email" name="email" placeholder={t('emailExample')} required />
+            </IonCard>
+            <IonCard>
+              <IonLabel> Password </IonLabel>
+              <IonInput id="password" type="password" name="password" required />
+            </IonCard>
+          </IonList>
+
+          <IonButton type="submit" disabled={loading}>
+            {loading ? t('loading') : t('login')}
+          </IonButton>
           <small>
             {t('qMissingAccount')}
             <IonRouterLink href="/signup">
               <a>{t('signup')}</a>
             </IonRouterLink>
           </small>
-          <IonButton type="submit" disabled={loading}>
-            {loading ? t('loading') : t('login')}
-          </IonButton>
+
           {logError && <p className="error">{logError.message}</p>}
           {logSuccess && <p>{t('redirectingToProfile')}</p>}
         </Form>
