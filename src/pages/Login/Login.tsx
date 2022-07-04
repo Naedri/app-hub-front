@@ -27,14 +27,15 @@ function Login(): JSX.Element {
   const [logSuccess, setLogSuccess] = useState(false);
 
   const { t, i18n } = useTranslation('auth');
-  async function signInUser(event: Event): Promise<void> {
+
+  async function logInUser(event: Event): Promise<void> {
     event.preventDefault();
     setLoading(true);
     setError(null);
 
     //TODO improve type of form
-    const email = (event.target as HTMLInputElement).value;
-    const password = (event.target as HTMLInputElement).value;
+    const email: string = (event.target as any).email.value;
+    const password: string = (event.target as any).password.value;
     const { user, error } = await login({ email, password });
 
     setLoading(false);
@@ -43,7 +44,7 @@ function Login(): JSX.Element {
       setLogSuccess(true);
     } else {
       if (error?.response?.status === 404) {
-        error.message = `${t('invalidIdentification')} ${t('orderTry')}`;
+        error.message = `${t('invalidIdentification')} ${t('tryAgain')}`;
       } else {
         error.message = `${t('unknown')}`;
       }
@@ -55,7 +56,7 @@ function Login(): JSX.Element {
     <IonPage>
       <Header pageTitle="Login" i18n={i18n} t={t}></Header>
       <IonContent fullscreen>
-        <Form onSubmit={signInUser}>
+        <Form onSubmit={logInUser}>
           <IonList>
             <IonCard>
               <IonLabel> Email </IonLabel>
