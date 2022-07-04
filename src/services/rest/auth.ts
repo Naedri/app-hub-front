@@ -1,54 +1,71 @@
+import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 import { apiUrl } from '../../utils/constants';
 import type { UserResponse } from '../../utils/interfaces/rest';
+import LOGGER from '../../utils/logger';
 
-const withCredConfig = { withCredentials: true };
+const logClassName = 'Service-Rest-Auth';
+
+const configCredit: AxiosRequestConfig = {
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+};
 
 async function login({ email, password }: { email: string; password: string }): Promise<UserResponse> {
   try {
-    const apiResponse = await axios.post(`${apiUrl}/auth/login`, { email, password }, withCredConfig);
+    LOGGER.INFO(logClassName, `Login with email: ${email}, password: ${password}.`);
+    const apiResponse = await axios.post(`${apiUrl}/auth/login`, { email, password }, configCredit);
     return { user: apiResponse.data, error: null };
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    LOGGER.ERROR(logClassName, e.toString());
     return { user: null, error: e };
   }
 }
 
 async function logout(): Promise<{ success: boolean; error: Error | null }> {
   try {
-    await axios.post(`${apiUrl}/auth/logout`, {}, withCredConfig);
+    LOGGER.INFO(logClassName, `Logout.`);
+    await axios.post(`${apiUrl}/auth/logout`, {}, configCredit);
     return { success: true, error: null };
-  } catch (e) {
+  } catch (e: any) {
+    LOGGER.ERROR(logClassName, e.toString());
     return { success: false, error: e as Error };
   }
 }
 
 async function register({ email, password }: { email: string; password: string }): Promise<UserResponse> {
   try {
+    LOGGER.INFO(logClassName, `Register with email: ${email}, password: ${password}.`);
     const apiResponse = await axios.post(
       `${apiUrl}/auth/register`,
       {
         email,
         password,
       },
-      withCredConfig
+      configCredit
     );
     return { user: apiResponse.data, error: null };
-  } catch (e) {
+  } catch (e: any) {
+    LOGGER.ERROR(logClassName, e.toString());
     return { user: null, error: e };
   }
 }
 
 async function getUserInfo(token = null): Promise<UserResponse> {
-  const config: any = withCredConfig;
+  LOGGER.INFO(logClassName, `getUserInfo with token : ${token}.`);
+  const config: any = configCredit;
   if (token) {
     config.headers = { Cookie: `token=${token}` };
   }
   try {
     const apiResponse = await axios.get(`${apiUrl}/auth/me`, config);
     return { user: apiResponse.data, error: null };
-  } catch (e) {
+  } catch (e: any) {
+    LOGGER.ERROR(logClassName, e.toString());
     return { user: null, error: e };
   }
 }
