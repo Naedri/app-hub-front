@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 import { Language } from '../../utils/enums/languages';
 
 const i18nextOptions = {
-  debug: true,
+  //debug: true,
   fallbackLng: Language.en,
   preload: [Language.en],
   ns: ['common'],

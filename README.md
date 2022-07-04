@@ -24,9 +24,9 @@ To display protected url of applications from your amazing company.
 - [Download the installer](https://nodejs.org/) for Node LTS.
 - Install the ionic CLI globally: `npm install -g ionic`
 - Clone this repository with `git clone`.
-- Run `npm install` from the project root.
-- Add, at the root level of the project an completed _.env_ file from the _.env.example_ file.
-- Run `ionic serve` in a terminal from the project root.
+- From the project root, run `npm install`.
+- At the root level of the project, add a completed _.env_ file from the _.env.example_ file.
+- In a terminal from the project root, run `npm run start:dev`.
 - Profit. :tada:
 
 _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-started/fixing-npm-permissions) if you are running into issues when trying to install packages globally._
@@ -50,6 +50,11 @@ _Note: See [How to Prevent Permissions Errors](https://docs.npmjs.com/getting-st
 ## Translation
 
 This app aims to support internationalization, thanks to [i18next](https://www.i18next.com/). A crash course is available on [YouTube](https://www.youtube.com/watch?v=SA_9i4TtxLQ).
+
+### how to change the content of the translation ?
+
+The following folder : _public\locales_ contains the translation for each language you plan to support.
+If you add a new language, please update the following enumeration : _src\utils\enums\languages.ts_ and add the associated translations.
 
 ### how to configure it ?
 

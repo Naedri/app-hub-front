@@ -2,8 +2,8 @@ import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonRouterLink, Ion
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ChangeLanguage from '../../components/ChangeLanguage';
 import Form from '../../components/Form';
+import LanguageSwitch from '../../components/LanguageSwitch';
 import { login } from '../../services/rest/auth';
 import type { ErrorFromServer } from '../../utils/interfaces/error';
 
@@ -26,7 +26,7 @@ function Login(): JSX.Element {
   const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
 
-  const { t, i18n } = useTranslation(['auth']);
+  const { t, i18n } = useTranslation('auth');
   async function signInUser(event: Event): Promise<void> {
     event.preventDefault();
     setLoading(true);
@@ -54,7 +54,7 @@ function Login(): JSX.Element {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Login</IonTitle>
-          <ChangeLanguage i18n={i18n}></ChangeLanguage>
+          <LanguageSwitch i18n={i18n} headerTitle={t('languageModify')}></LanguageSwitch>
         </IonToolbar>
       </IonHeader>
 
