@@ -1,9 +1,9 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonRouterLink, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonInput, IonPage, IonRouterLink } from '@ionic/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Form from '../../components/Form';
-import LanguageSwitch from '../../components/LanguageSwitch';
+import Header from '../../components/Header';
 import { login } from '../../services/rest/auth';
 import type { ErrorFromServer } from '../../utils/interfaces/error';
 
@@ -51,13 +51,7 @@ function Login(): JSX.Element {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Login</IonTitle>
-          <LanguageSwitch i18n={i18n} headerTitle={t('languageModify')}></LanguageSwitch>
-        </IonToolbar>
-      </IonHeader>
-
+      <Header pageTitle="Login" i18n={i18n} t={t}></Header>
       <IonContent fullscreen>
         <Form onSubmit={signInUser}>
           <IonInput id="email" type="email" name="email" placeholder={t('emailExample')} required />

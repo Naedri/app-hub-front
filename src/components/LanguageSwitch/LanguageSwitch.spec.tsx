@@ -2,8 +2,6 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Language } from '../../utils/enums/languages';
-
 import LanguageSwitch from './LanguageSwitch';
 
 describe(' languageswitch specs', () => {
