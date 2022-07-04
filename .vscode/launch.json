@@ -1,11 +1,12 @@
 {
     "version": "0.2.0",
     "configurations": [
+        // You need first to start the application (e.g. npm run start:dev)
         {
             "type": "chrome",
             "request": "launch",
             "name": "Chrome - Launch Ionic debug",
-            "url": "http://localhost:8100",
+            "url": "http://localhost:8200",
             "webRoot": "${workspaceFolder}"
         },
         // https://github.com/facebook/jest/issues/9430#issuecomment-1144204974
