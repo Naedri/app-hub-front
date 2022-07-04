@@ -8,7 +8,7 @@
                 {
                     "name": "client",
                     "commands": [
-                        "clear ; ionic serve --consolelogs"
+                        "clear ; npm run start:dev"
                     ],
                     "shouldRunCommands": false
                 },
