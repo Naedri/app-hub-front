@@ -44,6 +44,8 @@ function Login(): JSX.Element {
     } else {
       if (error?.response?.status === 404) {
         error.message = `${t('invalidIdentification')} ${t('orderTry')}`;
+      } else {
+        error.message = `${t('unknown')}`;
       }
       setError(error);
     }

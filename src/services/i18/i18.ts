@@ -1,3 +1,4 @@
+import type { InitOptions } from 'i18next';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
@@ -5,13 +6,13 @@ import { initReactI18next } from 'react-i18next';
 
 import { Language } from '../../utils/enums/languages';
 
-const i18nextOptions = {
+const i18nextOptions: InitOptions = {
   //debug: true,
   fallbackLng: Language.en,
   preload: [Language.en],
-  ns: ['common'],
+  ns: ['common', 'error'],
   defaultNS: 'common',
-  fallbackNS: ['common'],
+  fallbackNS: ['common', 'error'],
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
   },
