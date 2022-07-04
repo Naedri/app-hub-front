@@ -1,4 +1,16 @@
-export const apiUrl = process.env.MS_USERS_BACK_API_URL || 'http://localhost:3000';
+/**
+ * To set dev env var in a env file you have to follow the following rules (create-react-app ones):
+ * https://create-react-app.dev/docs/adding-custom-environment-variables/#adding-development-environment-variables-in-env
+ * => `REACT_APP_*`
+ * and referring them by lower case (ionic transformation):
+ * https://github.com/ionic-team/ionic-cli/issues/4333#issuecomment-1009481605
+ * => `console.log(process.env);`
+ */
+
+/**
+ * API URL from back-end service
+ */
+export const apiUrl = process.env.react_app_ms_users_back_api_url || 'http://localhost:3000';
 
 export const COLORS = [
   '#fad390',
