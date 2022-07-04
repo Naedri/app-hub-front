@@ -2,6 +2,7 @@ import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonRouterLink, Ion
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import ChangeLanguage from '../../components/ChangeLanguage';
 import Form from '../../components/Form';
 import { login } from '../../services/rest/auth';
 import type { ErrorFromServer } from '../../utils/interfaces/error';
@@ -25,8 +26,7 @@ function Login(): JSX.Element {
   const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
 
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation(['auth']);
   async function signInUser(event: Event): Promise<void> {
     event.preventDefault();
     setLoading(true);
@@ -43,7 +43,7 @@ function Login(): JSX.Element {
       setLogSuccess(true);
     } else {
       if (error?.response?.status === 404) {
-        error.message = `${t('auth:invalidIdentification')} ${t('orderTry')}`;
+        error.message = `${t('invalidIdentification')} ${t('orderTry')}`;
       }
       setError(error);
     }
@@ -54,24 +54,25 @@ function Login(): JSX.Element {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Login</IonTitle>
+          <ChangeLanguage i18n={i18n}></ChangeLanguage>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <Form onSubmit={signInUser}>
-          <IonInput id="email" type="email" name="email" placeholder={t('auth:emailExample')} required />
-          <IonInput id="password" type="password" name="password" placeholder={t('auth:passwordExample')} required />
+          <IonInput id="email" type="email" name="email" placeholder={t('emailExample')} required />
+          <IonInput id="password" type="password" name="password" placeholder={t('passwordExample')} required />
           <small>
-            {t('auth:qMissingAccount')}
+            {t('qMissingAccount')}
             <IonRouterLink href="/signup">
-              <a>{t('auth:signup')}</a>
+              <a>{t('signup')}</a>
             </IonRouterLink>
           </small>
           <IonButton type="submit" disabled={loading}>
-            {loading ? t('loading') : t('auth:login')}
+            {loading ? t('loading') : t('login')}
           </IonButton>
           {logError && <p className="error">{logError.message}</p>}
-          {logSuccess && <p>{t('auth:redirectingToProfile')}</p>}
+          {logSuccess && <p>{t('redirectingToProfile')}</p>}
         </Form>
       </IonContent>
     </IonPage>
