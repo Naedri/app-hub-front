@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Page404 from './pages/Page404';
 import ViewMessage from './pages/ViewMessage';
 
 /* Core CSS required for Ionic components to work properly */
@@ -31,6 +32,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Redirect from="**" to="/page-404" exact />
         <Route path="/" exact={true}>
           <Redirect to="/home" />
         </Route>
@@ -42,6 +44,9 @@ const App: React.FC = () => (
         </Route>
         <Route path="/message/:id">
           <ViewMessage />
+        </Route>
+        <Route path="/page-404" exact={true}>
+          <Page404 />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
