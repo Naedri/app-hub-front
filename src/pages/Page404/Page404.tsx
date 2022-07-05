@@ -25,21 +25,22 @@ function Page404(): JSX.Element {
 
   return (
     <IonPage>
-      <Header pageTitle={t('title')} i18n={i18n} t={t}></Header>
+      <Header pageTitle={t('NotFoundPageTitle')} i18n={i18n} t={t}></Header>
       <IonContent fullscreen>
-        <h3>
-          <strong>{t('error')} 404.</strong>
-        </h3>
         <h3>
           <IonIcon md={warningSharp} ios={warningOutline} /> {t('message')}
         </h3>
         <IonList>
           {t('choice')}
           <IonItem>
-            Go <a href="/home">home</a>
+            <IonButton onClick={() => history.push('/')}>
+              {t('goTo')} {t('previousPage')}
+            </IonButton>
           </IonItem>
           <IonItem>
-            Go <IonButton onClick={() => history.push('/')}> back </IonButton>
+            <IonButton onClick={() => history.push('/home')}>
+              {t('goTo')} {t('HomePageTitle')}
+            </IonButton>
           </IonItem>
         </IonList>
       </IonContent>
