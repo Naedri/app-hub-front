@@ -5,6 +5,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Page404 from './pages/Page404';
+import Register from './pages/Register';
 import ViewMessage from './pages/ViewMessage';
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,6 +39,9 @@ const App: React.FC = () => (
         </Route>
         <Route path="/home" exact={true}>
           <Home />
+        </Route>
+        <Route path="/register" exact={true}>
+          <Register />
         </Route>
         <Route path="/login" exact={true}>
           <Login />
