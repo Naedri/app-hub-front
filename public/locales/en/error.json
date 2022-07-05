@@ -1,5 +1,5 @@
 {
     "404": "Not found",
     "unknown": "Some strange thing happened.",
-    "error": "Error number"
+    "errorNumber": "Error number"
 }

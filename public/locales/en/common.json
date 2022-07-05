@@ -4,6 +4,14 @@
     "loading": "Loading",
     "redirecting": "Redirecting {{preposition}} {{somewhere}}",
     "to": "to",
+    "back": "back",
+    "goTo": "Going back to",
+    "previousPage": "previous page",
     "tryAgain": "Please try again.",
-    "languageModify": "Language modification."
+    "languageModify": "Language modification.",
+    "create": "Create",
+    "LoginPageTitle": "Login",
+    "RegisterPageTitle": "Register",
+    "HomePageTitle": "Home",
+    "NotFoundPageTitle": "Page not found"
 }

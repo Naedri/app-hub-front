@@ -54,7 +54,7 @@ function Login(): JSX.Element {
 
   return (
     <IonPage>
-      <Header pageTitle="Login" i18n={i18n} t={t}></Header>
+      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t}></Header>
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>
           <IonList>
