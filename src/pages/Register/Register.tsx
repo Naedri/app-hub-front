@@ -84,7 +84,7 @@ function Register(): JSX.Element {
           <IonRow className="ion-align-items-center">
             <IonCol size="6" offset="3">
               <IonButton color="primary" expand="full" shape="round" onClick={() => createUser()}>
-                {t('create')}
+                {t('register')}
               </IonButton>
             </IonCol>
           </IonRow>

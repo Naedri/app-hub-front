@@ -24,12 +24,7 @@
         {
             "splitTerminals": [
                 {
-                    "name": "cmd",
-                    "commands": [
-                        "clear",
-                        "ls"
-                    ],
-                    "shouldRunCommands": true
+                    "name": "cmd"
                 },
                 {
                     "name": "test",
@@ -41,7 +36,6 @@
                 {
                     "name": "git",
                     "commands": [
-                        "clear",
                         "git status"
                     ],
                     "shouldRunCommands": true

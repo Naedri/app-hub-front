@@ -1,8 +1,8 @@
 import { IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import type { i18n, TFunction } from 'i18next';
 import type { FC } from 'react';
-import React from 'react';
 
+import DarkModeButton from '../DarkModeButton';
 import LanguageSwitch from '../LanguageSwitch';
 
 import './Header.module.css';
@@ -19,6 +19,7 @@ const Header: FC<HeaderProps> = ({ pageTitle, i18n, t }: HeaderProps) => {
       <IonToolbar>
         <IonTitle>{pageTitle}</IonTitle>
         <LanguageSwitch i18n={i18n} headerTitle={t('languageModify')}></LanguageSwitch>
+        <DarkModeButton />
       </IonToolbar>
     </IonHeader>
   );
