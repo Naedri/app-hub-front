@@ -32,7 +32,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Redirect from="**" to="/page-404" exact />
+        <Route render={() => <Redirect from="**" to="/page-404" />} />
         <Route path="/" exact={true}>
           <Redirect to="/home" />
         </Route>
