@@ -28,7 +28,7 @@ function createUser(): void {
   throw new Error('Function not implemented.');
 }
 
-function Register(): JSX.Element {
+const Register: React.FC = () => {
   const [user, setUser] = useState<User>();
 
   // const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -100,6 +100,6 @@ function Register(): JSX.Element {
       </IonContent>
     </IonPage>
   );
-}
+};
 
 export default Register;

@@ -9,6 +9,7 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { Redirect, Route } from 'react-router-dom';
@@ -38,7 +39,7 @@ function getData(): Record<string, unknown> {
   return {};
 }
 
-function [FTName % pascalcase](): JSX.Element {
+const [FTName % pascalcase]: FC<[FTName % pascalcase]Props> = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Record<string, unknown>>();
 
@@ -51,15 +52,15 @@ function [FTName % pascalcase](): JSX.Element {
     setData(obj);
   });
 
-  
+
   return (
     <IonPage>
       <IonHeader>
-      <IonToolbar>
+        <IonToolbar>
           <IonTitle>[FTName % sentencecase]</IonTitle>
         </IonToolbar>
       </IonHeader>
-      
+    
       <IonContent fullscreen>
         {data ? (
           <>
@@ -73,6 +74,6 @@ function [FTName % pascalcase](): JSX.Element {
       </IonContent>
     </IonPage>
   );
-}
+};
 
 export default [FTName % pascalcase];

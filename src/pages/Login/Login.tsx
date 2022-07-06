@@ -21,7 +21,7 @@ import '../../theme/variables.css';
 /* Component CSS */
 import './Login.module.css';
 
-function Login(): JSX.Element {
+const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
@@ -54,7 +54,7 @@ function Login(): JSX.Element {
 
   return (
     <IonPage>
-      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t}></Header>
+      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t} />
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>
           <IonList>
@@ -84,6 +84,6 @@ function Login(): JSX.Element {
       </IonContent>
     </IonPage>
   );
-}
+};
 
 export default Login;

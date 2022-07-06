@@ -19,7 +19,7 @@ import '../../theme/variables.css';
 /* Component CSS */
 import './Page404.module.css';
 
-function Page404(): JSX.Element {
+const Page404: React.FC = () => {
   const history = useHistory();
   const { t, i18n } = useTranslation('page404');
 
@@ -46,6 +46,6 @@ function Page404(): JSX.Element {
       </IonContent>
     </IonPage>
   );
-}
+};
 
 export default Page404;
