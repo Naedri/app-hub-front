@@ -16,7 +16,7 @@ export interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ pageTitle, i18n, t }: HeaderProps) => {
   return (
-    <IonHeader>
+    <IonHeader translucent>
       <IonToolbar>
         <IonTitle>{pageTitle}</IonTitle>
         <LanguageSwitch i18n={i18n} headerTitle={t('languageModify')}></LanguageSwitch>

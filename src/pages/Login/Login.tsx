@@ -53,7 +53,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <IonPage>
+    <IonPage id="login-page">
       <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t} />
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>

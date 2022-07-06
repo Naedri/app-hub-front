@@ -13,5 +13,6 @@
     "LoginPageTitle": "Login",
     "RegisterPageTitle": "Register",
     "HomePageTitle": "Home",
-    "NotFoundPageTitle": "Page not found"
+    "NotFoundPageTitle": "Page not found",
+    "link": "link"
 }
