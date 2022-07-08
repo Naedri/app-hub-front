@@ -3,6 +3,7 @@ export interface User {
   email: string;
   password?: string;
   role: Role;
+  token?: string;
 }
 
 export interface UserDetail extends User {
