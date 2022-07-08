@@ -1,19 +1,12 @@
-import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 import { apiUrl } from '../../utils/constants';
 import type { UserResponse } from '../../utils/interfaces/rest';
 import LOGGER from '../../utils/logger';
 
-const logClassName = 'Service-Rest-Auth';
+import { configCredit } from './config';
 
-const configCredit: AxiosRequestConfig = {
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-};
+const logClassName = 'Service-Rest-Auth';
 
 async function login({ email, password }: { email: string; password: string }): Promise<UserResponse> {
   try {
@@ -55,11 +48,11 @@ async function register({ email, password }: { email: string; password: string }
   }
 }
 
-async function getUserInfo(token = null): Promise<UserResponse> {
+async function getUserInfo(token = ''): Promise<UserResponse> {
   LOGGER.INFO(logClassName, `getUserInfo with token : ${token}.`);
   const config: any = configCredit;
   if (token) {
-    config.headers = { Cookie: `token=${token}` };
+    config.headers = { Authorization: `Bearer ${token}` };
   }
   try {
     const apiResponse = await axios.get(`${apiUrl}/auth/me`, config);
