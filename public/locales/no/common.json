@@ -3,5 +3,9 @@
     "cancel": "Annuller",
     "loading": "Indlæsning",
     "tryAgain": "Prøv venligst igen.",
-    "languageModify": "Ændring af sprog."
+    "languageModify": "Ændring af sprog.",
+    "LoginPageTitle": "Forbindelse",
+    "RegisterPageTitle": "Registrer",
+    "HomePageTitle": "Hjem",
+    "NotFoundPageTitle": "Side ikke fundet"
 }
