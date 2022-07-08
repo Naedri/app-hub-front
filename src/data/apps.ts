@@ -30,12 +30,27 @@ const apps: IApp[] = [
     },
     url: 'www.google.com?appToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMxLCJyb2xlIjoiQ0xJRU5UIiwiYXBwSWQiOjcsInN1YlRva2VuVXVpZCI6Ijc4ZWE4ZThkLTdhZjctNGE1MC05MTllLTQ5NGJlNGUwZTJlMyIsImlhdCI6MTY1NzEyMzE4OSwiZXhwIjoxNjU3NzI3OTg5fQ.OnXSpsLIU0Z7foIB98Q-lOvizg2sdwup6BTJSxez1Sg',
   },
+  {
+    id: 11,
+    name: 'Brave',
+    description: {
+      en: 'To make you braver',
+    },
+  },
+  {
+    id: 13,
+    name: 'Explorer',
+  },
 ];
 
 export function getApps(): IApp[] {
-  return apps;
+  return sortApps(apps);
 }
 
 export function getApp(id: number): IApp | undefined {
   return apps.find((app) => app.id === id);
+}
+
+function sortApps(apps: IApp[]): IApp[] {
+  return apps.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
 }

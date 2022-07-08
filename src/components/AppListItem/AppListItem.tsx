@@ -1,6 +1,7 @@
 import { IonItem, IonLabel, IonNote } from '@ionic/react';
 import type { FC } from 'react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { IApp } from '../../utils/interfaces/iapp';
 
@@ -8,11 +9,21 @@ import './AppListItem.module.css';
 
 export interface AppListItemProps {
   app: IApp;
+  key?: number;
 }
 
-const AppListItem: FC<AppListItemProps> = ({ app }) => {
+const AppListItem: FC<AppListItemProps> = ({ app }, key = app.id) => {
+  const { i18n } = useTranslation('app');
+
+  const getDescription = (): React.ReactNode => {
+    // if (!app?.description) return t('noDescription');
+    if (!app?.description) return <></>;
+    const content = app.description[i18n.language] ? app.description[i18n.language] : app.description['en'];
+    return <p>{content}</p>;
+  };
+
   return (
-    <IonItem routerLink={`${app.url}`} detail={false}>
+    <IonItem routerLink={`${app.url}`} detail={false} key={key}>
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
         <h2>
@@ -21,18 +32,8 @@ const AppListItem: FC<AppListItemProps> = ({ app }) => {
             <IonNote>{app.id}</IonNote>
           </span>
         </h2>
-        <h3>{app.landingPage}</h3>
-        {app?.description ? (
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-          </p>
-        ) : (
-          <div>Description not found</div>
-        )}
+        {app.landingPage ? <h3>{app.landingPage}</h3> : <></>}
+        {getDescription()}
       </IonLabel>
     </IonItem>
   );

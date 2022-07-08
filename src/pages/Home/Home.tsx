@@ -65,7 +65,7 @@ const Home: React.FC = () => {
 
         <IonList>
           {apps.map((app) => (
-            <AppListItem app={app} />
+            <AppListItem app={app} key={app.id} />
           ))}
         </IonList>
       </IonContent>

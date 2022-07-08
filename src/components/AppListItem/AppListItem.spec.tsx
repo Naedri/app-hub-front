@@ -6,7 +6,7 @@ import AppListItem from './AppListItem';
 describe(' applistitem specs', () => {
   it('should render as expected when passing required properties', () => {
     // Arrange
-    const props = {
+    const app = {
       id: 9,
       name: 'DuckDuckGo',
       landingPage: 'https://duckduckgo.com/about',
@@ -17,7 +17,7 @@ describe(' applistitem specs', () => {
     };
 
     // Act
-    const component = shallow(<AppListItem app={props} />);
+    const component = shallow(<AppListItem app={app} />);
 
     // Assert
     expect(component).toMatchSnapshot();
