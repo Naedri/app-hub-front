@@ -1,20 +1,11 @@
-import {
-  IonContent,
-  IonHeader,
-  IonList,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToolbar,
-  useIonViewWillEnter,
-} from '@ionic/react';
+import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
-import { getApps } from '../../services/rest/apps';
+import { discoverApps, getApps } from '../../services/rest/apps';
+import { Role } from '../../utils/enums/roles';
 import type { Application } from '../../utils/interfaces/application';
 
 /* Core CSS required for Ionic components to work properly */
@@ -31,14 +22,24 @@ import '../../theme/variables.css';
 /* Component CSS */
 import './Home.module.css';
 
-const Home: React.FC = () => {
+export interface HomeProps {
+  role?: Role;
+  token?: string;
+}
+
+const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => {
   const [apps, setApps] = useState<Application[]>([]);
 
   const { t, i18n } = useTranslation('home');
 
   useIonViewWillEnter(async () => {
     // const apps = getLocalApps();
-    const apps = await getApps();
+    let apps: Application[] | undefined = [];
+    if (token) {
+      apps = await getApps(token);
+    } else {
+      apps = (await discoverApps()).apps;
+    }
     if (apps) setApps(apps);
   });
 
@@ -55,12 +56,6 @@ const Home: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Inbox</IonTitle>
-          </IonToolbar>
-        </IonHeader>
 
         <IonList>
           {apps.map((app) => (
