@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { IApp } from '../../utils/interfaces/iapp';
+import type { Application } from '../../utils/interfaces/application';
 
 import './AppListItem.module.css';
 
 export interface AppListItemProps {
-  app: IApp;
+  app: Application;
   key?: number;
 }
 

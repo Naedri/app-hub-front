@@ -1,11 +1,11 @@
-export interface ErrorFromServer {
+export type ErrorFromServer = {
   response: {
     status: number;
   };
   message: string;
-}
+};
 
-export interface ErrorClient {
+export type ErrorClient = {
   name: string;
   message: string;
-}
+};

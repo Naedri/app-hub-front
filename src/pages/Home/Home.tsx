@@ -14,9 +14,8 @@ import { useTranslation } from 'react-i18next';
 
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
-//TODO resolve
-// eslint-disable-next-line import/order
-import { getApps } from '../../data/apps';
+import { getApps } from '../../services/rest/apps';
+import type { Application } from '../../utils/interfaces/application';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -31,16 +30,16 @@ import '../../theme/variables.css';
 
 /* Component CSS */
 import './Home.module.css';
-import type { IApp } from '../../utils/interfaces/iapp';
 
 const Home: React.FC = () => {
-  const [apps, setApps] = useState<IApp[]>([]);
+  const [apps, setApps] = useState<Application[]>([]);
 
   const { t, i18n } = useTranslation('home');
 
-  useIonViewWillEnter(() => {
-    const apps = getApps();
-    setApps(apps);
+  useIonViewWillEnter(async () => {
+    // const apps = getLocalApps();
+    const apps = await getApps();
+    if (apps) setApps(apps);
   });
 
   const refresh = (e: CustomEvent) => {
