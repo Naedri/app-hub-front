@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
 import { discoverApps, getApps } from '../../services/rest/apps';
+import { get, set } from '../../services/storage';
 import { Role } from '../../utils/enums/roles';
 import type { Application } from '../../utils/interfaces/application';
 
@@ -34,13 +35,19 @@ const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => 
 
   useIonViewWillEnter(async () => {
     // const apps = getLocalApps();
-    let apps: Application[] | undefined = [];
-    if (token) {
-      apps = await getApps(token);
-    } else {
-      apps = (await discoverApps()).apps;
+    const existsApps = await get('apps');
+    if (!existsApps) {
+      let apps: Application[] | undefined = [];
+      if (token) {
+        apps = await getApps(token);
+      } else {
+        apps = (await discoverApps()).apps;
+      }
+      if (apps) {
+        set('apps', apps);
+        setApps(apps);
+      }
     }
-    if (apps) setApps(apps);
   });
 
   const refresh = (e: CustomEvent) => {
