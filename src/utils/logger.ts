@@ -1,17 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const LOGGER = {
-  INFO: (className: string, message: string): void => {
-    console.log(`${getDate()} [${className}] ${message}`);
+const Logger = {
+  info: (className: string, message: string): void => {
+    console.log(`${FgGreen}${getDate()} [${className}] ${message}${Reset}`);
   },
-  WARN: (className: string, message: string): void => {
+  warn: (className: string, message: string): void => {
     console.warn(`${FgYellow}${getDate()} [${className}] ${message}${Reset}`);
   },
-  ERROR: (className: string, message: string): void => {
+  error: (className: string, message: string): void => {
     console.error(`${FgRed}${getDate()} [${className}] ${message}${Reset}`);
+  },
+  reducer: (messagePS: string, messageA: string, messageNS: string): void => {
+    console.log(`${FgBlue}${getDate()} [Previous State] ${messagePS}${Reset}`);
+    console.log(`${FgMagenta}${getDate()} [Action] ${messageA}${Reset}`);
+    console.log(`${FgCyan}${getDate()} [Next State] ${messageNS}${Reset}`);
   },
 };
 
-export default LOGGER;
+export default Logger;
 
 function getDate(): string {
   const date = new Date(Date.now());

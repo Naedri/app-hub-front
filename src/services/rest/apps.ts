@@ -5,7 +5,7 @@ import { apiUrl } from '../../utils/constants';
 import type { Access } from '../../utils/interfaces/access';
 import type { Application } from '../../utils/interfaces/application';
 import type { AccessResponse, AppsResponse } from '../../utils/interfaces/rest';
-import LOGGER from '../../utils/logger';
+import Logger from '../../utils/logger';
 
 import { configCredit } from './config';
 
@@ -16,7 +16,7 @@ function sortApps(apps: Application[] | undefined): Application[] | undefined {
 }
 
 async function discoverApps(token = '', id: number | undefined = undefined): Promise<AppsResponse> {
-  LOGGER.INFO(logClassName, `discoverApps with token : ${token}.`);
+  Logger.info(logClassName, `discoverApps with token : ${token}.`);
   const config = configCredit;
   if (token) {
     config.headers = { Authorization: `Bearer ${token}` };
@@ -30,13 +30,13 @@ async function discoverApps(token = '', id: number | undefined = undefined): Pro
     apiResponse = await axios.get(`${apiUrl}/apps/discover`, config);
     return { apps: sortApps(apiResponse.data), error: null };
   } catch (e: any) {
-    LOGGER.ERROR(logClassName, e.toString());
+    Logger.error(logClassName, e.toString());
     return { apps: undefined, error: e };
   }
 }
 
 async function getAccess(token = '', id: number | undefined = undefined): Promise<AccessResponse> {
-  LOGGER.INFO(logClassName, `getAccess with token : ${token}.`);
+  Logger.info(logClassName, `getAccess with token : ${token}.`);
   const config = configCredit;
   if (token) {
     config.headers = { Authorization: `Bearer ${token}` };
@@ -50,7 +50,7 @@ async function getAccess(token = '', id: number | undefined = undefined): Promis
     apiResponse = await axios.get(`${apiUrl}/subs/myAccess`, config);
     return { access: [apiResponse.data], error: null };
   } catch (e: any) {
-    LOGGER.ERROR(logClassName, e.toString());
+    Logger.error(logClassName, e.toString());
     return { access: undefined, error: e };
   }
 }
