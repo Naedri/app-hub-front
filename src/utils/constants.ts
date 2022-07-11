@@ -12,6 +12,9 @@
  */
 export const apiUrl = process.env.react_app_ms_users_back_api_url || 'http://localhost:3000';
 
+export const storageKeyHasLoggedIn = 'hasLoggedIn';
+export const storageKey = 'user';
+
 export const COLORS = [
   '#fad390',
   '#f8c291',
