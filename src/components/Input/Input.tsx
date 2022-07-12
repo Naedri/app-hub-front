@@ -2,7 +2,7 @@ import { IonItem, IonLabel, IonInput, IonText } from '@ionic/react';
 import type { FC } from 'react';
 import React from 'react';
 
-import type { ErrorClient } from '../../utils/interfaces/error';
+import type { ErrorClient } from '../../types/interfaces/error';
 
 import './Input.module.css';
 

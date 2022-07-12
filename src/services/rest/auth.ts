@@ -1,7 +1,7 @@
 import axios from 'axios';
 
+import type { UserResponse } from '../../types/interfaces/rest';
 import { apiUrl } from '../../utils/constants';
-import type { UserResponse } from '../../utils/interfaces/rest';
 import Logger from '../../utils/logger';
 
 import { configCredit } from './config';

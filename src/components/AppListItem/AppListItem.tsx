@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Application } from '../../utils/interfaces/application';
+import type { Application } from '../../types/interfaces/application';
 
 import './AppListItem.module.css';
 

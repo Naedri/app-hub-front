@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import Header from '../../components/Header';
-import type { User } from '../../utils/interfaces/user';
+import type { User } from '../../types/interfaces/user';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Form from '../../components/Form';
 import Header from '../../components/Header';
 import { login } from '../../services/rest/auth';
-import type { ErrorFromServer } from '../../utils/interfaces/error';
+import type { ErrorFromServer } from '../../types/interfaces/error';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

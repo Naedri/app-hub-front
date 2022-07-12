@@ -4,7 +4,7 @@ import type { i18n } from 'i18next';
 import { languageOutline } from 'ionicons/icons';
 import type { FC } from 'react';
 
-import { Language } from '../../utils/enums/languages';
+import { Language } from '../../types/enums/languages';
 
 import './LanguageSwitch.module.css';
 

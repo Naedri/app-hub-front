@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
-import { Role } from '../../utils/enums/roles';
+import { Role } from '../../types/enums/roles';
 
 import type { HomeProps } from './Home';
 import Home from './Home';

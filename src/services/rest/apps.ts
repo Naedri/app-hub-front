@@ -1,10 +1,10 @@
 import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
+import type { Access } from '../../types/interfaces/access';
+import type { Application } from '../../types/interfaces/application';
+import type { AccessResponse, AppsResponse } from '../../types/interfaces/rest';
 import { apiUrl } from '../../utils/constants';
-import type { Access } from '../../utils/interfaces/access';
-import type { Application } from '../../utils/interfaces/application';
-import type { AccessResponse, AppsResponse } from '../../utils/interfaces/rest';
 import Logger from '../../utils/logger';
 
 import { configCredit } from './config';

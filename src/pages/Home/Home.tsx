@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
 import { discoverApps, getApps } from '../../services/rest/apps';
-import { Role } from '../../utils/enums/roles';
-import type { Application } from '../../utils/interfaces/application';
+import { Role } from '../../types/enums/roles';
+import type { Application } from '../../types/interfaces/application';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
