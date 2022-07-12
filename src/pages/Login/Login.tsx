@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Form from '../../components/Form';
 import Header from '../../components/Header';
 import { UserContext } from '../../contexts/user.context';
-import { login } from '../../services/rest/auth';
+import { login, parseUserToken } from '../../services/rest/auth';
 import type { ErrorFromServer } from '../../types/interfaces/error';
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,12 +38,14 @@ const Login: React.FC = () => {
     //TODO improve type of form
     const email: string = (event.target as any).email.value;
     const password: string = (event.target as any).password.value;
-    const { user, error } = await login({ email, password });
+    const { accessToken, error } = await login({ email, password });
 
     setLoading(false);
 
-    if (user) {
-      dispatchUser({ user: user });
+    if (accessToken) {
+      const user = parseUserToken(accessToken);
+      user.email = email;
+      dispatchUser({ user });
       setLogSuccess(true);
     } else {
       if (error?.response?.status === 404) {
