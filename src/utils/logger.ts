@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const Logger = {
   info: (className: string, message: string): void => {
-    console.log(`${FgGreen}${getDate()} [${className}] ${message}${Reset}`);
+    console.log(`${FgWhite}${getDate()} ${FgGreen}LOG ${FgYellow}[${className}] ${FgGreen}${message}${Reset}`);
   },
   warn: (className: string, message: string): void => {
-    console.warn(`${FgYellow}${getDate()} [${className}] ${message}${Reset}`);
+    console.warn(`${FgWhite}${getDate()} ${FgCyan}LOG ${FgYellow}[${className}] ${FgCyan}${message}${Reset}`);
   },
   error: (className: string, message: string): void => {
-    console.error(`${FgRed}${getDate()} [${className}] ${message}${Reset}`);
+    console.error(`${FgWhite}${getDate()} ${FgRed}LOG ${FgYellow}[${className}] ${FgRed}${message}${Reset}`);
   },
   reducer: (messagePS: string, messageA: string, messageNS: string): void => {
-    console.log(`${FgBlue}${getDate()} [Previous State] ${messagePS}${Reset}`);
-    console.log(`${FgMagenta}${getDate()} [Action] ${messageA}${Reset}`);
-    console.log(`${FgCyan}${getDate()} [Next State] ${messageNS}${Reset}`);
+    console.log(`${FgWhite}${getDate()} ${FgBlack}LOG ${FgYellow}[Previous State] ${FgBlack}${messagePS}${Reset}`);
+    console.log(`${FgWhite}${getDate()} ${FgMagenta}LOG ${FgYellow}[Action] ${FgMagenta}${messageA}${Reset}`);
+    console.log(`${FgWhite}${getDate()} ${FgBlue}LOG ${FgYellow}[Next State] ${FgBlue}${messageNS}${Reset}`);
   },
 };
 
@@ -26,7 +26,7 @@ function getDate(): string {
   const minutes = ('0' + date.getMinutes()).slice(-2);
   const seconds = ('0' + date.getSeconds()).slice(-2);
 
-  return `[${day}/${month}/${date.getFullYear()}:${hours}:${minutes}:${seconds}]`;
+  return `[${day}-${month}-${date.getFullYear()}_${hours}:${minutes}:${seconds}]`;
 }
 
 const Reset = '\x1b[0m';
