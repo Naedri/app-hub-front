@@ -29,27 +29,17 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+// The order matters
 const App: React.FC = () => (
   <UserContextProvider>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route render={() => <Redirect from="**" to="/page-404" />} />
-          <Route path="/" exact={true}>
-            <Redirect to="/home" />
-          </Route>
-          <Route path="/home" exact={true}>
-            <Home />
-          </Route>
-          <Route path="/register" exact={true}>
-            <Register />
-          </Route>
-          <Route path="/login" exact={true}>
-            <Login />
-          </Route>
-          <Route path="/page-404" exact={true}>
-            <Page404 />
-          </Route>
+          <Route exact path="/home" component={Home} />
+          <Redirect exact from="/" to="/home" />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route component={Page404} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
