@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonIcon, IonItem, IonList, IonPage } from '@ionic/react';
-import { warningOutline, warningSharp } from 'ionicons/icons';
+import { arrowBackOutline, homeOutline, warningOutline, warningSharp } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
@@ -33,13 +33,15 @@ const NotFound: React.FC = () => {
         <IonList>
           {t('choice')}
           <IonItem>
-            <IonButton onClick={() => history.push('/')}>
-              {t('goTo')} {t('previousPage')}
+            <IonButton routerLink="/home" routerDirection="root">
+              <IonIcon slot="start" icon={homeOutline} />
+              {t('goTo')} {t('HomePageTitle')}
             </IonButton>
           </IonItem>
           <IonItem>
-            <IonButton onClick={() => history.push('/home')}>
-              {t('goTo')} {t('HomePageTitle')}
+            <IonButton onClick={() => history.goBack()} routerDirection="back">
+              <IonIcon slot="start" icon={arrowBackOutline} />
+              {t('goTo')} {t('previousPage')}
             </IonButton>
           </IonItem>
         </IonList>
