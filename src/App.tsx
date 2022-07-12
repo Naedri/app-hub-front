@@ -5,7 +5,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { UserContextProvider } from './contexts/user.context';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Page404 from './pages/Page404';
+import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 
 /* Core CSS required for Ionic components to work properly */
@@ -39,7 +39,7 @@ const App: React.FC = () => (
           <Redirect exact from="/" to="/home" />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route component={Page404} />
+          <Route component={NotFound} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

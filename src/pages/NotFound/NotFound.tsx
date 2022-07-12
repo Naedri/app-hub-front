@@ -17,11 +17,11 @@ import '@ionic/react/css/typography.css';
 import '../../theme/variables.css';
 
 /* Component CSS */
-import './Page404.module.css';
+import './NotFound.module.css';
 
-const Page404: React.FC = () => {
+const NotFound: React.FC = () => {
   const history = useHistory();
-  const { t, i18n } = useTranslation('page404');
+  const { t, i18n } = useTranslation('notFound');
 
   return (
     <IonPage>
@@ -48,4 +48,4 @@ const Page404: React.FC = () => {
   );
 };
 
-export default Page404;
+export default NotFound;
