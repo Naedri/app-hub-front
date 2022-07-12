@@ -1,9 +1,10 @@
 import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
+import { UserContext } from '../../contexts/user.context';
 import { discoverApps, getApps } from '../../services/rest/apps';
 import { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
@@ -29,14 +30,15 @@ export interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => {
   const [apps, setApps] = useState<Application[]>([]);
+  const { stateUser, dispatchUser } = useContext(UserContext);
 
   const { t, i18n } = useTranslation('home');
 
   useIonViewWillEnter(async () => {
     // const apps = getLocalApps();
     let apps: Application[] | undefined = [];
-    if (token) {
-      apps = await getApps(token);
+    if (stateUser?.user?.token) {
+      apps = await getApps(stateUser.user.token);
     } else {
       apps = (await discoverApps()).apps;
     }

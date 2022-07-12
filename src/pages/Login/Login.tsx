@@ -1,9 +1,10 @@
 import { IonButton, IonCard, IonContent, IonInput, IonLabel, IonList, IonPage, IonRouterLink } from '@ionic/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Form from '../../components/Form';
 import Header from '../../components/Header';
+import { UserContext } from '../../contexts/user.context';
 import { login } from '../../services/rest/auth';
 import type { ErrorFromServer } from '../../types/interfaces/error';
 
@@ -25,6 +26,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
+  const { stateUser, dispatchUser } = useContext(UserContext);
 
   const { t, i18n } = useTranslation('auth');
 
@@ -41,6 +43,7 @@ const Login: React.FC = () => {
     setLoading(false);
 
     if (user) {
+      dispatchUser({ user: user });
       setLogSuccess(true);
     } else {
       if (error?.response?.status === 404) {
