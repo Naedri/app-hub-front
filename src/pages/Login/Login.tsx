@@ -1,6 +1,7 @@
 import { IonButton, IonCard, IonContent, IonInput, IonLabel, IonList, IonPage, IonRouterLink } from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 
 import Form from '../../components/Form';
 import Header from '../../components/Header';
@@ -28,6 +29,7 @@ const Login: React.FC = () => {
   const [logSuccess, setLogSuccess] = useState(false);
   const { stateUser, dispatchUser } = useContext(UserContext);
 
+  const history = useHistory();
   const { t, i18n } = useTranslation('auth');
 
   async function logInUser(event: Event): Promise<void> {
@@ -45,15 +47,19 @@ const Login: React.FC = () => {
     if (accessToken) {
       const user = parseUserToken(accessToken);
       user.email = email;
-      dispatchUser({ user });
+      dispatchUser({ ...stateUser, user: user });
+      setError(error);
       setLogSuccess(true);
+      history.push('/home');
     } else {
       if (error?.response?.status === 404) {
         error.message = `${t('invalidIdentification')} ${t('tryAgain')}`;
       } else {
         error.message = `${t('unknown')}`;
       }
+      dispatchUser({ ...stateUser, user: undefined });
       setError(error);
+      setLogSuccess(false);
     }
   }
 

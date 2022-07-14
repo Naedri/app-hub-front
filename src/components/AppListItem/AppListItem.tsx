@@ -23,7 +23,7 @@ const AppListItem: FC<AppListItemProps> = ({ app }, key = app.id) => {
   };
 
   return (
-    <IonItem routerLink={`${app.url}`} detail={false} key={key}>
+    <IonItem detail={false} key={key}>
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
         <h2>

@@ -14,6 +14,7 @@ describe(' applistitem specs', () => {
         en: 'To make you healthier',
         no: 'Claudine the cat',
       },
+      isPublic: false,
     };
 
     // Act

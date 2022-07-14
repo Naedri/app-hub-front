@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
 import { UserContext } from '../../contexts/user.context';
-import { discoverApps, getApps } from '../../services/rest/apps';
+import { getApps } from '../../services/rest/apps';
 import { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
 
@@ -36,12 +36,7 @@ const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => 
 
   useIonViewWillEnter(async () => {
     // const apps = getLocalApps();
-    let apps: Application[] | undefined = [];
-    if (stateUser?.user?.token) {
-      apps = await getApps(stateUser.user.token);
-    } else {
-      apps = (await discoverApps()).apps;
-    }
+    const apps: Application[] = await getApps(stateUser?.user?.token);
     if (apps) setApps(apps);
   });
 
@@ -59,11 +54,7 @@ const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => 
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
-        <IonList>
-          {apps.map((app) => (
-            <AppListItem app={app} key={app.id} />
-          ))}
-        </IonList>
+        <IonList>{apps ? apps?.map((app) => <AppListItem app={app} key={app.id} />) : 'Connect you'}</IonList>
       </IonContent>
     </IonPage>
   );

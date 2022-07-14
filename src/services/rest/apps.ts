@@ -2,8 +2,8 @@ import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
 import type { Access } from '../../types/interfaces/access';
-import type { Application } from '../../types/interfaces/application';
-import type { AccessResponse, AppsResponse } from '../../types/interfaces/rest';
+import type { Application, PrivateApplication, PublicApplication } from '../../types/interfaces/application';
+import type { PrivateAppResponse, AccessResponse, PublicAppResponse } from '../../types/interfaces/rest';
 import { apiUrl } from '../../utils/constants';
 import Logger from '../../utils/logger';
 
@@ -11,73 +11,92 @@ import { configCredit } from './config';
 
 const logClassName = 'Service-Rest-Apps';
 
-function sortApps(apps: Application[] | undefined): Application[] | undefined {
-  return apps?.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-}
-
-async function discoverApps(id: number | undefined = undefined): Promise<AppsResponse> {
-  Logger.info(logClassName, `discoverApps.`);
+async function getPublicApps(id = 0): Promise<PublicAppResponse> {
+  Logger.info(logClassName, `getPublicApps.`);
   const config = configCredit;
   try {
     let apiResponse: AxiosRequestConfig<Application[]>;
     if (id) {
       apiResponse = await axios.get(`${apiUrl}/apps/discover/${id}`, config);
-      return { apps: [apiResponse.data], error: null };
+      return { apps: [apiResponse.data as unknown as PublicApplication], error: null };
     }
     apiResponse = await axios.get(`${apiUrl}/apps/discover`, config);
-    return { apps: sortApps(apiResponse.data), error: null };
+    return { apps: apiResponse.data as unknown as PublicApplication[], error: null };
   } catch (e: any) {
     Logger.error(logClassName, e.toString());
     return { apps: undefined, error: e };
   }
 }
 
-async function getAccess(token = '', id: number | undefined = undefined): Promise<AccessResponse> {
-  Logger.info(logClassName, `getAccess with token : ${token}.`);
+async function getPrivateApps(token = '', id = 0): Promise<PrivateAppResponse> {
+  const accessResponse = await getPrivateAccess(token, id);
+  if (accessResponse?.access != undefined) {
+    const accesses = accessResponse.access;
+    const apps: PrivateApplication[] = [];
+    accesses.forEach((access) => {
+      apps.push(access.application);
+    });
+    return { apps: apps, error: accessResponse.error };
+  } else {
+    return { apps: undefined, error: accessResponse.error };
+  }
+}
+
+async function getPrivateAccess(token = '', id = 0): Promise<AccessResponse> {
+  if (token) Logger.info(logClassName, `getPrivateAccess with token : ${token}.`);
   const config = configCredit;
   if (token) {
     config.headers = { Authorization: `Bearer ${token}` };
   }
   try {
-    let apiResponse: AxiosRequestConfig<AccessResponse[]>;
+    let apiResponse: AxiosRequestConfig<Access[]>;
     if (id) {
-      apiResponse = await axios.get(`${apiUrl}/subs/myAccess/${id}`, config);
-      return { access: [apiResponse.data], error: null };
+      apiResponse = await axios.get(`${apiUrl}/subs/myaccess/${id}`, config);
+      return { access: [apiResponse.data as unknown as Access], error: null };
     }
-    apiResponse = await axios.get(`${apiUrl}/subs/myAccess`, config);
-    return { access: [apiResponse.data], error: null };
+    apiResponse = await axios.get(`${apiUrl}/subs/myaccess`, config);
+    return { access: apiResponse.data as unknown as Access[], error: null };
   } catch (e: any) {
     Logger.error(logClassName, e.toString());
     return { access: undefined, error: e };
   }
 }
 
-async function getApps(token: string): Promise<Application[] | undefined> {
-  const accessP = getAccess(token);
-  const appsP = discoverApps();
-  const resolve = await Promise.all([appsP, accessP]);
-  const apps = resolve[0].apps;
-  if (!resolve[1].access) {
-    return apps;
+async function getApps(token = ''): Promise<Application[]> {
+  if (token) Logger.info(logClassName, `getAllApps with token : ${token}.`);
+  let result: Application[] = [];
+
+  let privateApp: PrivateApplication[] | undefined;
+  let privateAppP: Promise<PrivateAppResponse>;
+
+  let publicApp: PublicApplication[] | undefined;
+  const publicAppP = getPublicApps();
+
+  if (token) {
+    privateAppP = getPrivateApps(token);
+    const resolve = await Promise.all([privateAppP, publicAppP]);
+    privateApp = resolve[0]?.apps;
+    publicApp = resolve[1]?.apps;
+  } else {
+    privateApp = [];
+    publicApp = (await Promise.resolve(publicAppP))?.apps;
   }
-  if (apps) {
-    const access = accessToMap(resolve[1].access);
-    Object.keys(access).forEach((appId: string) => {
-      apps.find((app) => app.id == appId).url = access[appId];
-    });
-    return apps;
+
+  if (token && privateApp == undefined) {
+    Logger.info(logClassName, `getAllApps with undefined privateApp.`);
+    privateApp = [];
   }
-  return undefined;
+  if (publicApp == undefined) {
+    Logger.info(logClassName, `getAllApps with undefined publicApp.`);
+    publicApp = [];
+  }
+
+  result = { ...publicApp, ...privateApp };
+  return result;
 }
 
-function accessToMap(access: Access[]): { [key: string]: string } {
-  const myHash: { [key: string]: string } = {};
-
-  access.forEach((element) => {
-    const appId = element.appId.toString();
-    myHash[appId] = element.url;
-  });
-  return myHash;
+function sortApps(apps: Application[]): Application[] {
+  return apps?.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
 }
 
-export { discoverApps, getAccess, getApps };
+export { getApps };
