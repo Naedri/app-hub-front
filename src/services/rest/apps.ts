@@ -36,7 +36,7 @@ async function getPrivateApps(token = '', id = 0): Promise<PrivateAppResponse> {
     accesses.forEach((access) => {
       apps.push(access.application);
     });
-    return { apps: apps, error: accessResponse.error };
+    return { apps: apps, error: null };
   } else {
     return { apps: undefined, error: accessResponse.error };
   }
@@ -103,17 +103,13 @@ function sort(apps: Application[]): Application[] {
 }
 
 function removeDuplicate(privateApp: PrivateApplication[], publicApp: PublicApplication[]): Application[] {
-  let unique: Application[] = [];
   const uniquePr = [...new Set<Application>(privateApp)];
+  const mapPr = new Map<number, Application>(uniquePr.map((obj) => [obj.id, obj]));
+
   const uniquePu = [...new Set<Application>(publicApp)];
-  if (uniquePr.length < uniquePu.length) {
-    unique = uniquePr.filter((value) => !uniquePu.includes(value));
-    unique = { ...unique, ...uniquePu };
-  } else {
-    unique = uniquePu.filter((value) => !uniquePr.includes(value));
-    unique = { ...unique, ...uniquePr };
-  }
-  return unique;
+  const uniquePuF = uniquePu.filter((value) => !mapPr.has(value.id));
+
+  return [...uniquePr, ...uniquePuF];
 }
 
 export { getApps };
