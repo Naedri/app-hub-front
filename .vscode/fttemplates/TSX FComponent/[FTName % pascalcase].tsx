@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import React from 'react';
 
 import './[FTName % pascalcase].module.css';
@@ -7,7 +7,7 @@ export interface [FTName % pascalcase]Props {
   disabled?: boolean;
   onClick?: (e?: Event) => void;
   defaultValue?: string;
-  children?: any;
+  children?: ReactNode | undefined;
   type?: 'submit' | 'reset' | '[FTName % camelcase]';
 }
 

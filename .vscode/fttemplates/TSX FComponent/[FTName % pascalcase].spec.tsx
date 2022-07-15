@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import [FTName % pascalcase] from './[FTName % pascalcase]';
 
-describe(' [FTName % lowercase] specs', () => {
+describe(' [FTName % sentencecase] specs', () => {
   it('should render as expected when passing required properties', () => {
     // Arrange
     const props = {
