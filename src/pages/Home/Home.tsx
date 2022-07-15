@@ -1,3 +1,4 @@
+import type { RefresherEventDetail } from '@ionic/react';
 import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,15 +36,16 @@ const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => 
   const { t, i18n } = useTranslation('home');
 
   useIonViewWillEnter(async () => {
-    // const apps = getLocalApps();
     const apps: Application[] = await getApps(stateUser?.user?.token);
     if (apps) setApps(apps);
   });
 
-  const refresh = (e: CustomEvent) => {
+  const refresh = async (event: CustomEvent<RefresherEventDetail>) => {
+    const apps: Application[] = await getApps(stateUser?.user?.token);
+    if (apps) setApps(apps);
     setTimeout(() => {
-      e.detail.complete();
-    }, 3000);
+      event.detail.complete();
+    }, 1500);
   };
 
   return (
