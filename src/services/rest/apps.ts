@@ -64,8 +64,6 @@ async function getPrivateAccess(token = '', id = 0): Promise<AccessResponse> {
 
 async function getApps(token = ''): Promise<Application[]> {
   if (token) Logger.info(logClassName, `getAllApps with token : ${token}.`);
-  let result: Application[] = [];
-
   let privateApp: PrivateApplication[] | undefined;
   let privateAppP: Promise<PrivateAppResponse>;
 
@@ -82,7 +80,7 @@ async function getApps(token = ''): Promise<Application[]> {
     publicApp = (await Promise.resolve(publicAppP))?.apps;
   }
 
-  if (token && privateApp == undefined) {
+  if (privateApp == undefined) {
     Logger.info(logClassName, `getAllApps with undefined privateApp.`);
     privateApp = [];
   }
@@ -91,12 +89,31 @@ async function getApps(token = ''): Promise<Application[]> {
     publicApp = [];
   }
 
-  result = { ...publicApp, ...privateApp };
-  return result;
+  const result = removeDuplicate(privateApp, publicApp);
+  return sort(result);
 }
 
-function sortApps(apps: Application[]): Application[] {
+/**
+ * Sorting by the name
+ * @param apps
+ * @returns
+ */
+function sort(apps: Application[]): Application[] {
   return apps?.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+}
+
+function removeDuplicate(privateApp: PrivateApplication[], publicApp: PublicApplication[]): Application[] {
+  let unique: Application[] = [];
+  const uniquePr = [...new Set<Application>(privateApp)];
+  const uniquePu = [...new Set<Application>(publicApp)];
+  if (uniquePr.length < uniquePu.length) {
+    unique = uniquePr.filter((value) => !uniquePu.includes(value));
+    unique = { ...unique, ...uniquePu };
+  } else {
+    unique = uniquePu.filter((value) => !uniquePr.includes(value));
+    unique = { ...unique, ...uniquePr };
+  }
+  return unique;
 }
 
 export { getApps };
