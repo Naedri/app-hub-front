@@ -1,5 +1,5 @@
 import type ErrorClient from './ErrorClient';
-import type { PublicApplication, PrivateApplication } from './application';
+import type { PublicApplication, PrivateApplication, Application } from './application';
 import type User from './user';
 
 export type UserToken = {
@@ -14,5 +14,6 @@ export type UserResponse = { user: User | null; error: ErrorClient | null };
 
 export type PublicAppResponse = { apps: PublicApplication[] | undefined; error: ErrorClient | null };
 export type PrivateAppResponse = { apps: PrivateApplication[] | undefined; error: ErrorClient | null };
+export type AppResponse = { apps: Application[]; error: ErrorClient | null };
 
 export type AccessResponse = { access: Access[] | undefined; error: ErrorClient | null };

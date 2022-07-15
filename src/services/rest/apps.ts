@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import type { Access } from '../../types/interfaces/access';
 import type { Application, PrivateApplication, PublicApplication } from '../../types/interfaces/application';
-import type { PrivateAppResponse, AccessResponse, PublicAppResponse } from '../../types/interfaces/rest';
+import type { PrivateAppResponse, AccessResponse, PublicAppResponse, AppResponse } from '../../types/interfaces/rest';
 import { apiUrl } from '../../utils/constants';
 import Logger from '../../utils/logger';
 
@@ -62,8 +62,13 @@ async function getPrivateAccess(token = '', id = 0): Promise<AccessResponse> {
   }
 }
 
-async function getApps(token = ''): Promise<Application[]> {
+async function getApps(token = ''): Promise<AppResponse> {
   if (token) Logger.info(logClassName, `getApps with token : ${token}.`);
+  const result: AppResponse = {
+    apps: [],
+    error: undefined,
+  };
+
   let privateApp: PrivateApplication[] | undefined;
   let privateAppP: Promise<PrivateAppResponse>;
 
@@ -75,9 +80,12 @@ async function getApps(token = ''): Promise<Application[]> {
     const resolve = await Promise.all([privateAppP, publicAppP]);
     privateApp = resolve[0]?.apps;
     publicApp = resolve[1]?.apps;
+    result.error = resolve[0]?.error;
   } else {
     privateApp = [];
-    publicApp = (await Promise.resolve(publicAppP))?.apps;
+    const resolve = await Promise.resolve(publicAppP);
+    publicApp = resolve?.apps;
+    result.error = resolve?.error;
   }
 
   if (privateApp == undefined) {
@@ -89,8 +97,8 @@ async function getApps(token = ''): Promise<Application[]> {
     publicApp = [];
   }
 
-  const result = removeDuplicate(privateApp, publicApp);
-  return sort(result);
+  result.apps = sort(removeDuplicate(privateApp, publicApp));
+  return result;
 }
 
 /**
