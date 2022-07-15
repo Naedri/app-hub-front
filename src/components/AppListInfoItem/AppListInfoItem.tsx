@@ -5,13 +5,12 @@ import React, { useRef, useEffect, useState } from 'react';
 import './AppListInfoItem.module.css';
 
 export interface AppListInfoItemProps {
-  textTitle: string;
+  title: string;
   textHelp?: string;
   textError?: string;
 }
 
-const AppListInfoItem: FC<AppListInfoItemProps> = ({ textTitle, textHelp, textError }: AppListInfoItemProps) => {
-  const [title, setTitle] = useState(textTitle);
+const AppListInfoItem: FC<AppListInfoItemProps> = ({ title, textHelp, textError }: AppListInfoItemProps) => {
   const [help, setHelp] = useState(textHelp);
   const [error, setError] = useState(textError);
 
@@ -22,10 +21,9 @@ const AppListInfoItem: FC<AppListInfoItemProps> = ({ textTitle, textHelp, textEr
       isFirstRender.current = false;
       return; // return early if first render
     }
-    setTitle(textTitle);
     setHelp(textHelp);
     setError(textError);
-  }, [textTitle, textHelp, textError]);
+  }, [textHelp, textError]);
 
   return (
     <IonItem>
