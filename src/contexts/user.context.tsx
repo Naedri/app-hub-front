@@ -24,7 +24,7 @@ export interface UserContextProps {
 }
 
 // default value
-const defaultState: UserContextState = {
+export const defaultState: UserContextState = {
   user: {
     id: 0,
     role: Role.CLIENT,

@@ -1,3 +1,5 @@
 {
-    "subscribe": "subscribe"
+    "subscribe": "subscribe",
+    "connectToSeeApps": "Try to (re)connect to see more apps.",
+    "contactToSeeApps": "Contact our customer service to get access to more apps."
 }

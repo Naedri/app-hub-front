@@ -1,14 +1,17 @@
 import type { RefresherEventDetail } from '@ionic/react';
 import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
+import type { AxiosError } from 'axios';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AppListItem from '../../components/AppListItem';
+import AppListNoItem from '../../components/AppListNoItem';
 import Header from '../../components/Header';
-import { UserContext } from '../../contexts/user.context';
+import { defaultState as userDefaultState, UserContext } from '../../contexts/user.context';
 import { getApps } from '../../services/rest/apps';
-import { Role } from '../../types/enums/roles';
+import type { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
+import { describeError } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,20 +32,37 @@ export interface HomeProps {
   token?: string;
 }
 
-const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => {
+const Home: React.FC<HomeProps> = () => {
+  const [logError, setError] = useState<AxiosError | null>(null);
   const [apps, setApps] = useState<Application[]>([]);
   const { stateUser, dispatchUser } = useContext(UserContext);
 
   const { t, i18n } = useTranslation('home');
 
+  async function loadApps() {
+    const response = await getApps(stateUser?.user?.token);
+    if (response?.error != null) {
+      setError(response?.error);
+      if (stateUser?.user?.token && response?.error?.code == 401) {
+        //token may have expired
+        dispatchUser(userDefaultState);
+      }
+    } else {
+      setError(null);
+    }
+    if (response?.apps?.length > 0) {
+      setApps(response?.apps);
+    } else {
+      setApps([]);
+    }
+  }
+
   useIonViewWillEnter(async () => {
-    const apps: Application[] = await getApps(stateUser?.user?.token);
-    if (apps) setApps(apps);
+    await loadApps();
   });
 
   const refresh = async (event: CustomEvent<RefresherEventDetail>) => {
-    const apps: Application[] = await getApps(stateUser?.user?.token);
-    if (apps) setApps(apps);
+    await loadApps();
     setTimeout(() => {
       event.detail.complete();
     }, 1500);
@@ -56,7 +76,19 @@ const Home: React.FC<HomeProps> = ({ role = Role.CLIENT, token }: HomeProps) => 
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
-        <IonList>{apps ? apps?.map((app) => <AppListItem app={app} key={app.id} />) : 'Connect you'}</IonList>
+        <IonList>
+          {apps?.length > 0 ? (
+            apps?.map((app) => <AppListItem app={app} key={app.id} />)
+          ) : (
+            <AppListNoItem
+              title={t('noContent')}
+              textHelp={logError ? (stateUser?.user?.token ? t('contactToSeeApps') : t('connectToSeeApps')) : ''}
+              textError={logError ? describeError(t, logError) : ''}
+            />
+          )}
+        </IonList>
+
+        <></>
       </IonContent>
     </IonPage>
   );

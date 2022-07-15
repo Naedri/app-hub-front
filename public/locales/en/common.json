@@ -14,5 +14,7 @@
     "RegisterPageTitle": "Register",
     "HomePageTitle": "Home",
     "NotFoundPageTitle": "Page not found",
-    "link": "link"
+    "link": "link",
+    "connectYou": "Connect you.",
+    "noContent": "There is no content."
 }
