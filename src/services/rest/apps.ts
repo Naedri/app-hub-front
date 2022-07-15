@@ -63,7 +63,7 @@ async function getPrivateAccess(token = '', id = 0): Promise<AccessResponse> {
 }
 
 async function getApps(token = ''): Promise<Application[]> {
-  if (token) Logger.info(logClassName, `getAllApps with token : ${token}.`);
+  if (token) Logger.info(logClassName, `getApps with token : ${token}.`);
   let privateApp: PrivateApplication[] | undefined;
   let privateAppP: Promise<PrivateAppResponse>;
 
@@ -81,11 +81,11 @@ async function getApps(token = ''): Promise<Application[]> {
   }
 
   if (privateApp == undefined) {
-    Logger.info(logClassName, `getAllApps with undefined privateApp.`);
+    Logger.warn(logClassName, `getApps with undefined privateApp.`);
     privateApp = [];
   }
   if (publicApp == undefined) {
-    Logger.info(logClassName, `getAllApps with undefined publicApp.`);
+    Logger.warn(logClassName, `getApps with undefined publicApp.`);
     publicApp = [];
   }
 
