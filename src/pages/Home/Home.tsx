@@ -79,20 +79,20 @@ const Home: React.FC<HomeProps> = () => {
             apps?.map((app) => <AppListItem app={app} key={app.id} />)
           ) : (
             <AppListInfoItem
-              title={t('noContent')}
+              textTitle={t('noContent')}
               textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
               textError={logError ? describeError(t, logError) : ''}
             />
           )}
 
           {stateUser?.user?.token ? (
+            <></>
+          ) : (
             <AppListInfoItem
-              title={t('notConnected')}
+              textTitle={t('notConnected')}
               textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
               textError={logError ? describeError(t, logError) : ''}
             />
-          ) : (
-            <></>
           )}
         </IonList>
       </IonContent>

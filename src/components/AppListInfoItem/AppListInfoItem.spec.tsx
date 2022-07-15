@@ -7,7 +7,7 @@ describe(' applistinfoitem specs', () => {
   it('should render as expected when passing required properties', () => {
     // Arrange
     const props = {
-      title: 'test name',
+      textTitle: 'test name',
     };
 
     // Act
