@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
-import AppListNoItem from './AppListNoItem';
+import AppListInfoItem from './AppListInfoItem';
 
-describe(' applistnoitem specs', () => {
+describe(' applistinfoitem specs', () => {
   it('should render as expected when passing required properties', () => {
     // Arrange
     const props = {
@@ -11,7 +11,7 @@ describe(' applistnoitem specs', () => {
     };
 
     // Act
-    const component = shallow(<AppListNoItem {...props} />);
+    const component = shallow(<AppListInfoItem {...props} />);
 
     // Assert
     expect(component).toMatchSnapshot();

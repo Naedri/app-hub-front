@@ -3,8 +3,8 @@ import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIon
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import AppListInfoItem from '../../components/AppListInfoItem';
 import AppListItem from '../../components/AppListItem';
-import AppListNoItem from '../../components/AppListNoItem';
 import Header from '../../components/Header';
 import { defaultState as userDefaultState, UserContext } from '../../contexts/user.context';
 import { getApps } from '../../services/rest/apps';
@@ -74,20 +74,27 @@ const Home: React.FC<HomeProps> = () => {
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-
         <IonList>
           {apps?.length > 0 ? (
             apps?.map((app) => <AppListItem app={app} key={app.id} />)
           ) : (
-            <AppListNoItem
+            <AppListInfoItem
               title={t('noContent')}
-              textHelp={stateUser?.user?.token ? (logError ? '' : t('contactToSeeApps')) : t('connectToSeeApps')}
+              textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
               textError={logError ? describeError(t, logError) : ''}
             />
           )}
-        </IonList>
 
-        <></>
+          {stateUser?.user?.token ? (
+            <AppListInfoItem
+              title={t('notConnected')}
+              textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
+              textError={logError ? describeError(t, logError) : ''}
+            />
+          ) : (
+            <></>
+          )}
+        </IonList>
       </IonContent>
     </IonPage>
   );

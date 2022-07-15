@@ -16,5 +16,6 @@
     "NotFoundPageTitle": "Page not found",
     "link": "link",
     "connectYou": "Connect you.",
-    "noContent": "There is no content."
+    "noContent": "There is no content.",
+    "reloadApp": "Restart the app."
 }

@@ -2,15 +2,15 @@ import { IonItem, IonLabel, IonNote } from '@ionic/react';
 import type { FC } from 'react';
 import React from 'react';
 
-import './AppListNoItem.module.css';
+import './AppListInfoItem.module.css';
 
-export interface AppListNoItemProps {
+export interface AppListInfoItemProps {
   title: string;
   textHelp?: string;
   textError?: string;
 }
 
-const AppListNoItem: FC<AppListNoItemProps> = ({ title, textHelp, textError }: AppListNoItemProps) => {
+const AppListInfoItem: FC<AppListInfoItemProps> = ({ title, textHelp, textError }: AppListInfoItemProps) => {
   return (
     <IonItem>
       <IonLabel className="ion-text-wrap">{title}</IonLabel>
@@ -20,4 +20,4 @@ const AppListNoItem: FC<AppListNoItemProps> = ({ title, textHelp, textError }: A
   );
 };
 
-export default AppListNoItem;
+export default AppListInfoItem;
