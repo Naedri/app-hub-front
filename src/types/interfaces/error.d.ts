@@ -1,8 +1,9 @@
 export type ErrorFromServer = {
-  response: {
-    status: number;
+  code?: number;
+  message?: string;
+  config?: {
+    withCredentials?: boolean;
   };
-  message: string;
 };
 
 export type ErrorClient = {

@@ -1,6 +1,5 @@
 import type { RefresherEventDetail } from '@ionic/react';
 import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
-import type { AxiosError } from 'axios';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +10,8 @@ import { defaultState as userDefaultState, UserContext } from '../../contexts/us
 import { getApps } from '../../services/rest/apps';
 import type { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
-import { describeError } from '../../utils/format';
+import type { ErrorFromServer } from '../../types/interfaces/error';
+import { formatError, describeError } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,16 +33,15 @@ export interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = () => {
-  const [logError, setError] = useState<AxiosError | null>(null);
-  const [apps, setApps] = useState<Application[]>([]);
-  const { stateUser, dispatchUser } = useContext(UserContext);
-
   const { t, i18n } = useTranslation('home');
+  const { stateUser, dispatchUser } = useContext(UserContext);
+  const [apps, setApps] = useState<Application[]>([]);
+  const [logError, setError] = useState<ErrorFromServer | null>(null);
 
   async function loadApps() {
     const response = await getApps(stateUser?.user?.token);
     if (response?.error != null) {
-      setError(response?.error);
+      setError(formatError(response?.error));
       if (stateUser?.user?.token && response?.error?.code == 401) {
         //token may have expired
         dispatchUser(userDefaultState);
@@ -82,7 +81,7 @@ const Home: React.FC<HomeProps> = () => {
           ) : (
             <AppListNoItem
               title={t('noContent')}
-              textHelp={logError ? (stateUser?.user?.token ? t('contactToSeeApps') : t('connectToSeeApps')) : ''}
+              textHelp={stateUser?.user?.token ? (logError ? '' : t('contactToSeeApps')) : t('connectToSeeApps')}
               textError={logError ? describeError(t, logError) : ''}
             />
           )}

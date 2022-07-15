@@ -1,4 +1,4 @@
-import { IonItem, IonLabel, IonNote, IonText } from '@ionic/react';
+import { IonItem, IonLabel, IonNote } from '@ionic/react';
 import type { FC } from 'react';
 import React from 'react';
 
@@ -12,7 +12,7 @@ export interface AppListNoItemProps {
 
 const AppListNoItem: FC<AppListNoItemProps> = ({ title, textHelp, textError }: AppListNoItemProps) => {
   return (
-    <IonItem key={0}>
+    <IonItem>
       <IonLabel className="ion-text-wrap">{title}</IonLabel>
       {textHelp ? <IonNote slot="help">{textHelp}</IonNote> : <></>}
       {textError ? <IonNote slot="error">{textError}</IonNote> : <></>}

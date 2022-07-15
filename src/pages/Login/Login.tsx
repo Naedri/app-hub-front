@@ -1,5 +1,4 @@
 import { IonButton, IonCard, IonContent, IonInput, IonLabel, IonList, IonPage, IonRouterLink } from '@ionic/react';
-import type { AxiosError } from 'axios';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
@@ -8,6 +7,7 @@ import Form from '../../components/Form';
 import Header from '../../components/Header';
 import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
+import type { ErrorFromServer } from '../../types/interfaces/error';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -25,7 +25,7 @@ import './Login.module.css';
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [logError, setError] = useState<AxiosError | null>(null);
+  const [logError, setError] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
   const { stateUser, dispatchUser } = useContext(UserContext);
 

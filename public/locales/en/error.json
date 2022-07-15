@@ -41,5 +41,15 @@
     "507": "Insufficient Storage",
     "508": "Loop Detected",
     "510": "Not Extended",
-    "511": "Network Authentication Required"
+    "511": "Network Authentication Required",
+    "601": "Too Many Request Error",
+    "602": "Bad Option Value Error",
+    "603": "Bad Option Error",
+    "604": "Network Error",
+    "605": "Deprecated Error",
+    "606": "Bad Reponse Error",
+    "607": "Bad Request Error",
+    "608": "Canceled Error",
+    "609": "Connection Aborted Error",
+    "610": "Timeout Error"
 }

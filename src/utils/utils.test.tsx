@@ -1,7 +1,9 @@
 import type { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
 
-import { describeError } from './format';
+import type { ErrorFromServer } from '../types/interfaces/error';
+
+import { describeError, formatError } from './format';
 
 const errorNetwork = {
   message: 'Network Error',
@@ -30,10 +32,25 @@ const errorNetwork = {
   status: undefined,
 };
 
-test('utils - format - describeError', () => {
-  const { t, i18n } = useTranslation('home');
+test('utils - format - formatError', () => {
+  const error = errorNetwork;
+  const expected = {
+    status: error.status,
+    code: 601,
+    message: error.message,
+    config: {
+      withCredentials: error.config.withCredentials,
+    },
+  };
+  const observed = formatError(error as unknown as AxiosError);
+  expect(observed).toBe(expected);
+});
 
+test('utils - format - describeError', () => {
+  const { t } = useTranslation('home');
+
+  const error = errorNetwork;
   const expected = 'The following network error happened: network error (ERR_NETWORK)';
-  const observed = describeError(t, errorNetwork as unknown as AxiosError);
+  const observed = describeError(t, error as unknown as ErrorFromServer);
   expect(observed).toBe(expected);
 });
