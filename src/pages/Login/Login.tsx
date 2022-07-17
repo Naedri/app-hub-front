@@ -7,6 +7,7 @@ import Form from '../../components/Form';
 import Header from '../../components/Header';
 import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
+import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
 
 /* Core CSS required for Ionic components to work properly */
@@ -65,7 +66,7 @@ const Login: React.FC = () => {
 
   return (
     <IonPage id="login-page">
-      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t} />
+      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t} page={Page.Login} />
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>
           <IonList>
