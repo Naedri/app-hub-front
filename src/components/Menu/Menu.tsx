@@ -15,7 +15,7 @@ export type MenuProps = {
 
 const Menu: FC<MenuProps> = ({ t, contentId = 'main' }: MenuProps) => {
   return (
-    <IonMenu side="start" contentId={contentId}>
+    <IonMenu side="start" contentId={contentId} menuId="main-menu" type="overlay">
       <IonHeader>
         <IonToolbar>
           <IonTitle>{capitalizeFirstLetter(t('menu'))}</IonTitle>

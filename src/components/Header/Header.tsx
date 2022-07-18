@@ -21,7 +21,7 @@ const Header: FC<HeaderProps> = ({ page, i18n, t }: HeaderProps) => {
     <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonMenuButton />
+          <IonMenuButton menu="main-menu" />
         </IonButtons>
 
         <IonTitle>{t(mapPageToTitle(page))}</IonTitle>
