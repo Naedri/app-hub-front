@@ -8,7 +8,8 @@
         "ionicons",
         "myaccess",
         "signup",
-        "Tsne"
+        "Tsne",
+        "uncapitalize"
     ],
     "cSpell.ignorePaths": [
         "node_modules", // this will ignore anything the node_modules directory
