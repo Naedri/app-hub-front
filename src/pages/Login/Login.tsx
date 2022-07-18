@@ -117,13 +117,18 @@ const Login: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="6" offset="3">
+              <IonCol size="6" offset="3.5">
                 <IonLabel>{t('qMissingAccount')}</IonLabel>
+              </IonCol>
+            </IonRow>
+
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
                 <IonButton
-                  color="light"
+                  color="tertiary"
                   expand="full"
                   shape="round"
-                  onClick={() => history.push('/')}
+                  onClick={() => history.push('/register')}
                   disabled={loading}
                 >
                   {t('signup')}
