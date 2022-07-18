@@ -1,7 +1,7 @@
 import type { AxiosError } from 'axios';
 
 import type { Page } from '../types/enums/pages';
-import type { ErrorFromServer } from '../types/interfaces/error';
+import type { ErrorClient, ErrorFromServer } from '../types/interfaces/error';
 
 /**
  * CASE
@@ -69,15 +69,28 @@ const codeMap = {
 const keys = Object.keys(codeMap);
 
 /**
- * To translate the description of an error
+ * To translate the description of an error received from a server
  * @param t from i18n useTranslation
  * @param error
  * @returns
  */
-export function describeError(t: (...args: any) => string, error: ErrorFromServer): string {
-  return t('errorDescription', {
+export function describeServerError(t: (...args: any) => string, error: ErrorFromServer): string {
+  return t('errorServerDescription', {
     description: t(`${error?.code}`, 'unknownDescription'),
     code: error?.code,
+    ns: 'error',
+  });
+}
+
+/**
+ * To translate the description of an error raised by the client
+ * @param t from i18n useTranslation
+ * @param error
+ * @returns
+ */
+export function describeClientError(t: (...args: any) => string, error: ErrorClient): string {
+  return t('errorClientDescription', {
+    description: t(`client${capitalizeFirstLetter(error.key)}`, 'unknownDescription'),
     ns: 'error',
   });
 }

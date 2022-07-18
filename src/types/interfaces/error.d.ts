@@ -6,7 +6,11 @@ export type ErrorFromServer = {
   };
 };
 
+/**
+ * key will be used for the translation
+ */
 export type ErrorClient = {
-  name: string;
-  message: string;
+  key: string;
+  message?: string;
+  advice?: string;
 };

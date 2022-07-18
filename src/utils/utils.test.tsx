@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ErrorFromServer } from '../types/interfaces/error';
 
-import { describeError, formatError } from './format';
+import { describeServerError, formatError } from './format';
 
 const errorNetwork = {
   message: 'Network Error',
@@ -46,11 +46,11 @@ test('utils - format - formatError', () => {
   expect(observed).toBe(expected);
 });
 
-test('utils - format - describeError', () => {
+test('utils - format - describeServerError', () => {
   const { t } = useTranslation('home');
 
   const error = errorNetwork;
   const expected = 'The following network error happened: network error (ERR_NETWORK)';
-  const observed = describeError(t, error as unknown as ErrorFromServer);
+  const observed = describeServerError(t, error as unknown as ErrorFromServer);
   expect(observed).toBe(expected);
 });

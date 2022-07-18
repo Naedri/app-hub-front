@@ -17,9 +17,9 @@ const Input: FC<InputProps> = ({ name, label, errors }) => {
     <>
       <IonItem>
         {label && <IonLabel position="floating">{label}</IonLabel>}
-        <IonInput aria-invalid={errors?.name ? 'true' : 'false'} aria-describedby={`${name}Error`} />
+        <IonInput aria-invalid={errors?.key ? 'true' : 'false'} aria-describedby={`${name}Error`} />
       </IonItem>
-      {errors?.name && (
+      {errors?.key && (
         <IonText color="danger" className="ion-padding-start">
           <small>
             <span role="alert" id={`${name}Error`}>

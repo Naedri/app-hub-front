@@ -13,7 +13,7 @@ import { Page } from '../../types/enums/pages';
 import type { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { formatError, describeError, pascalToKebab } from '../../utils/format';
+import { formatError, describeServerError, pascalToKebab } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -87,7 +87,7 @@ const Home: React.FC<HomeProps> = () => {
             <AppListInfoItem
               title={t('noContent')}
               textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
-              textError={logError ? describeError(t, logError) : ''}
+              textError={logError ? describeServerError(t, logError) : ''}
             />
           )}
 
@@ -97,7 +97,7 @@ const Home: React.FC<HomeProps> = () => {
             <AppListInfoItem
               title={t('notConnected')}
               textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
-              textError={logError ? describeError(t, logError) : ''}
+              textError={logError ? describeServerError(t, logError) : ''}
             />
           )}
         </IonList>

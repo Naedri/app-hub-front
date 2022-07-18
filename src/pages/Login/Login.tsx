@@ -22,7 +22,7 @@ import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { pascalToKebab, capitalizeFirstLetter, describeError } from '../../utils/format';
+import { pascalToKebab, capitalizeFirstLetter, describeServerError } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -139,7 +139,7 @@ const Login: React.FC = () => {
               <IonCol size="6" offset="3">
                 {(logError || logSuccess) && (
                   <IonList inset>
-                    {logError && <LabelItem color="danger" text={describeError(t, logError)} />}
+                    {logError && <LabelItem color="danger" text={describeServerError(t, logError)} />}
                     {logSuccess && (
                       <LabelItem
                         color="success"
