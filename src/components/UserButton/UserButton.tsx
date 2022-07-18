@@ -1,24 +1,34 @@
-import { IonButton, IonIcon, IonPopover, IonContent } from '@ionic/react';
+import { IonButton, IonIcon } from '@ionic/react';
 import { logOutOutline, logInOutline } from 'ionicons/icons';
 import type { FC } from 'react';
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import './UserButton.module.css';
 
 export interface UserButtonProps {
+  connected?: boolean;
   disabled?: boolean;
-  logged?: boolean;
 }
 
-const UserButton: FC<UserButtonProps> = ({ logged = false, disabled = false }: UserButtonProps) => {
-  const [isConnected, setConnected] = useState(logged);
+const UserButton: FC<UserButtonProps> = ({ connected = false, disabled = false }: UserButtonProps) => {
+  const [isConnected, setConnected] = useState(connected);
   const [isDisabled, setDisabled] = useState(disabled);
   const history = useHistory();
 
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // return early if first render
+    }
+    setConnected(connected);
+    setDisabled(disabled);
+  }, [connected, disabled]);
+
   const handleLog = async (connect: boolean): Promise<void> => {
     setDisabled(true);
-    setConnected(connect);
     if (connect) {
       //login
       history.push('/login');

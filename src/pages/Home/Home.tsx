@@ -75,7 +75,7 @@ const Home: React.FC<HomeProps> = () => {
   return (
     <IonPage id={id}>
       <Menu t={t} />
-      <Header page={page} i18n={i18n} t={t} />
+      <Header page={page} i18n={i18n} t={t} user={stateUser?.user} />
       <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
