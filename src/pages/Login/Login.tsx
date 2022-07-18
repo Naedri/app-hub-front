@@ -5,10 +5,12 @@ import { useHistory } from 'react-router';
 
 import Form from '../../components/Form';
 import Header from '../../components/Header';
+import Menu from '../../components/Menu';
 import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
+import { pascalToKebab } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -23,6 +25,9 @@ import '../../theme/variables.css';
 
 /* Component CSS */
 import './Login.module.css';
+
+const page = Page.Login;
+const id = `${pascalToKebab(page)}-page`;
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -65,8 +70,9 @@ const Login: React.FC = () => {
   }
 
   return (
-    <IonPage id="login-page">
-      <Header pageTitle={t('LoginPageTitle')} i18n={i18n} t={t} page={Page.Login} />
+    <IonPage id={id}>
+      <Menu t={t} />
+      <Header page={page} i18n={i18n} t={t} />
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>
           <IonList>

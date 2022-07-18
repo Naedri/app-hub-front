@@ -6,12 +6,14 @@ import { useTranslation } from 'react-i18next';
 import AppListInfoItem from '../../components/AppListInfoItem';
 import AppListItem from '../../components/AppListItem';
 import Header from '../../components/Header';
+import Menu from '../../components/Menu';
 import { defaultState as userDefaultState, UserContext } from '../../contexts/user.context';
 import { getApps } from '../../services/rest/apps';
+import { Page } from '../../types/enums/pages';
 import type { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { formatError, describeError } from '../../utils/format';
+import { formatError, describeError, pascalToKebab } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -31,6 +33,9 @@ export interface HomeProps {
   role?: Role;
   token?: string;
 }
+
+const page = Page.Home;
+const id = `${pascalToKebab(page)}-page`;
 
 const Home: React.FC<HomeProps> = () => {
   const { t, i18n } = useTranslation('home');
@@ -68,8 +73,9 @@ const Home: React.FC<HomeProps> = () => {
   };
 
   return (
-    <IonPage id="home-page">
-      <Header pageTitle={t('HomePageTitle')} i18n={i18n} t={t} />
+    <IonPage id={id}>
+      <Menu t={t} />
+      <Header page={page} i18n={i18n} t={t} />
       <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>

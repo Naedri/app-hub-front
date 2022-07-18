@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import Header from '../../components/Header';
+import Menu from '../../components/Menu';
+import { Page } from '../../types/enums/pages';
 import type { User } from '../../types/interfaces/user';
+import { pascalToKebab } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -19,6 +22,9 @@ import '../../theme/variables.css';
 
 /* Component CSS */
 import './Register.module.css';
+
+const page = Page.Register;
+const id = `${pascalToKebab(page)}-page`;
 
 function handleChange(e: Event): void {
   throw new Error('Function not implemented.');
@@ -38,8 +44,9 @@ const Register: React.FC = () => {
   const { t, i18n } = useTranslation('auth');
 
   return (
-    <IonPage>
-      <Header pageTitle={t('RegisterPageTitle')} i18n={i18n} t={t} />
+    <IonPage id={id}>
+      <Menu t={t} />
+      <Header page={page} i18n={i18n} t={t} />
 
       <IonContent fullscreen>
         <IonGrid>

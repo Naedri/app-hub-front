@@ -2,6 +2,8 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Page } from '../../types/enums/pages';
+
 import Header from './Header';
 
 describe(' header specs', () => {
@@ -10,7 +12,7 @@ describe(' header specs', () => {
 
     // Arrange
     const props = {
-      pageTitle: 'Test title',
+      page: Page.Home,
       i18n: i18n,
       t: t,
     };

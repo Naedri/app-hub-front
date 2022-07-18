@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
 import Header from '../../components/Header';
+import Menu from '../../components/Menu';
+import { Page } from '../../types/enums/pages';
+import { pascalToKebab } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -19,13 +22,17 @@ import '../../theme/variables.css';
 /* Component CSS */
 import './NotFound.module.css';
 
+const page = Page.NotFound;
+const id = `${pascalToKebab(page)}-page`;
+
 const NotFound: React.FC = () => {
   const history = useHistory();
   const { t, i18n } = useTranslation('notFound');
 
   return (
-    <IonPage>
-      <Header pageTitle={t('NotFoundPageTitle')} i18n={i18n} t={t}></Header>
+    <IonPage id={id}>
+      <Menu t={t} />
+      <Header page={page} i18n={i18n} t={t} />
       <IonContent fullscreen>
         <h3>
           <IonIcon md={warningSharp} ios={warningOutline} /> {t('message')}

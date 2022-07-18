@@ -1,6 +1,6 @@
 export enum Page {
-  Home = 'HOME',
-  Login = 'LOGIN',
-  NotFound = 'NOTFOUND',
-  Register = 'REGISTER',
+  Home = 'Home',
+  Login = 'Login',
+  NotFound = 'NotFound',
+  Register = 'Register',
 }
