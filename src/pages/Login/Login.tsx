@@ -1,4 +1,17 @@
-import { IonButton, IonCard, IonContent, IonInput, IonLabel, IonList, IonPage, IonRouterLink } from '@ionic/react';
+import {
+  IonButton,
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPage,
+  IonRouterLink,
+  IonRow,
+} from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
@@ -10,7 +23,7 @@ import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { pascalToKebab } from '../../utils/format';
+import { pascalToKebab, capitalizeFirstLetter } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -73,31 +86,58 @@ const Login: React.FC = () => {
     <IonPage id={id}>
       <Menu t={t} />
       <Header page={page} i18n={i18n} t={t} />
+
       <IonContent fullscreen>
         <Form onSubmit={logInUser}>
-          <IonList>
-            <IonCard>
-              <IonLabel> Email </IonLabel>
-              <IonInput id="email" type="email" name="email" placeholder={t('emailExample')} required />
-            </IonCard>
-            <IonCard>
-              <IonLabel> Password </IonLabel>
-              <IonInput id="password" type="password" name="password" required />
-            </IonCard>
-          </IonList>
+          <IonGrid>
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
+                <IonCard>
+                  <IonLabel> {capitalizeFirstLetter(t('email'))} </IonLabel>
+                  <IonInput id="email" type="email" name="email" required />
+                </IonCard>
+              </IonCol>
+            </IonRow>
 
-          <IonButton type="submit" disabled={loading}>
-            {loading ? t('loading') : t('login')}
-          </IonButton>
-          <small>
-            {t('qMissingAccount')}
-            <IonRouterLink href="/signup">
-              <a>{t('signup')}</a>
-            </IonRouterLink>
-          </small>
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
+                <IonCard>
+                  <IonLabel> {capitalizeFirstLetter(t('password'))} </IonLabel>
+                  <IonInput id="password" type="password" name="password" required />
+                </IonCard>
+              </IonCol>
+            </IonRow>
 
-          {logError && <p className="error">{logError.message}</p>}
-          {logSuccess && <p>{t('redirectingToProfile')}</p>}
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
+                <IonButton type="submit" color="primary" expand="full" shape="round" disabled={loading}>
+                  {loading ? t('loading') : t('login')}
+                </IonButton>
+              </IonCol>
+            </IonRow>
+
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
+                <IonLabel>{t('qMissingAccount')}</IonLabel>
+                <IonButton
+                  color="light"
+                  expand="full"
+                  shape="round"
+                  onClick={() => history.push('/')}
+                  disabled={loading}
+                >
+                  {t('signup')}
+                </IonButton>
+              </IonCol>
+            </IonRow>
+
+            <IonRow className="ion-align-items-center">
+              <IonCol size="6" offset="3">
+                {logError && <p className="error">{logError.message}</p>}
+                {logSuccess && <p>{t('redirectingToProfile')}</p>}
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </Form>
       </IonContent>
     </IonPage>
