@@ -63,7 +63,7 @@ const Home: React.FC<HomeProps> = () => {
 
   useIonViewWillEnter(async () => {
     await loadApps();
-  });
+  }, [stateUser?.user?.token]);
 
   const refresh = async (event: CustomEvent<RefresherEventDetail>) => {
     await loadApps();

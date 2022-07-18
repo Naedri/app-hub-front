@@ -27,16 +27,9 @@ const UserButton: FC<UserButtonProps> = ({ connected = false, disabled = false }
     setDisabled(disabled);
   }, [connected, disabled]);
 
-  const handleLog = async (connect: boolean): Promise<void> => {
+  const handleLog = async (disconnect: boolean): Promise<void> => {
     setDisabled(true);
-    if (connect) {
-      //login
-      history.push('/login');
-    } else {
-      //logout
-      //TODO clean local storage
-      history.push('/login');
-    }
+    history.push('/login');
     setDisabled(false);
   };
 
@@ -44,13 +37,13 @@ const UserButton: FC<UserButtonProps> = ({ connected = false, disabled = false }
     <>
       {isConnected ? (
         <>
-          <IonButton id="user-logout" color="danger" onClick={() => handleLog(false)} disabled={isDisabled}>
+          <IonButton id="user-logout" color="danger" onClick={() => handleLog(true)} disabled={isDisabled}>
             <IonIcon slot="icon-only" icon={logOutOutline} />
           </IonButton>
         </>
       ) : (
         <>
-          <IonButton id="user-login" color="primary" onClick={() => handleLog(true)} disabled={isDisabled}>
+          <IonButton id="user-login" color="primary" onClick={() => handleLog(false)} disabled={isDisabled}>
             <IonIcon slot="icon-only" icon={logInOutline} />
           </IonButton>
         </>
