@@ -4,6 +4,7 @@
     "errorNumber": "Error number",
     "errorServerDescription": "A network error occured: {{description}} ({{code}}).",
     "errorClientDescription": "A client error occured: {{description}}.",
+    "clientPasswordConfirm": "password confirmation differs",
     "ERR_NETWORK": "network error",
     "ERR_CONNECTION_REFUSED": "refused connection",
     "400": "Bad Request",

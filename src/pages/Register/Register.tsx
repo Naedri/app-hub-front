@@ -20,9 +20,15 @@ import LabelItem from '../../components/LabelItem';
 import Menu from '../../components/Menu';
 import { register } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
-import type { ErrorFromServer } from '../../types/interfaces/error';
+import type { ErrorClient, ErrorFromServer } from '../../types/interfaces/error';
 import type { User } from '../../types/interfaces/user';
-import { pascalToKebab, formatError, describeError, capitalizeFirstLetter } from '../../utils/format';
+import {
+  pascalToKebab,
+  formatError,
+  describeServerError,
+  describeClientError,
+  capitalizeFirstLetter,
+} from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -43,7 +49,8 @@ const id = `${pascalToKebab(page)}-page`;
 
 const Register: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [logError, setError] = useState<ErrorFromServer | null>(null);
+  const [logErrorC, setErrorC] = useState<ErrorClient | null>(null);
+  const [logErrorS, setErrorS] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
 
   // const { stateUser, dispatchUser } = useContext(UserContext);
@@ -58,11 +65,21 @@ const Register: React.FC = () => {
   async function registerUser(event: Event): Promise<void> {
     event.preventDefault();
     setLoading(true);
-    setError(null);
+    setErrorC(null);
+    setErrorS(null);
 
     //TODO improve type of form
     const email: string = (event.target as any).email.value;
     const password: string = (event.target as any).password.value;
+    const passwordConfirm: string = (event.target as any).passwordConfirm.value;
+
+    if (password !== passwordConfirm) {
+      setLoading(false);
+      setErrorC({ key: 'passwordConfirm' });
+      return;
+    }
+    setErrorC(null);
+
     const { user, error } = await register({ email, password });
 
     setLoading(false);
@@ -70,13 +87,13 @@ const Register: React.FC = () => {
     if (user) {
       // dispatchUser({ ...stateUser, user: user });
       setUser(user);
-      setError(null);
+      setErrorS(null);
       setLogSuccess(true);
       history.push('/login');
     } else {
       // dispatchUser({ ...stateUser, user: undefined });
       setUser(undefined);
-      setError(formatError(error));
+      setErrorS(formatError(error));
       setLogSuccess(false);
     }
   }
@@ -118,7 +135,7 @@ const Register: React.FC = () => {
             <IonRow className="ion-align-items-center">
               <IonCol size="6" offset="3">
                 <IonCard>
-                  <IonLabel> {capitalizeFirstLetter(t('password'))} </IonLabel>
+                  <IonLabel> {capitalizeFirstLetter(t('passwordConfirm'))} </IonLabel>
                   <IonInput
                     id="passwordConfirm"
                     name="passwordConfirm"
@@ -163,9 +180,10 @@ const Register: React.FC = () => {
 
             <IonRow className="ion-align-items-center">
               <IonCol size="6" offset="3">
-                {(logError || logSuccess) && (
+                {(logErrorC || logErrorS || logSuccess) && (
                   <IonList inset>
-                    {logError && <LabelItem color="danger" text={describeError(t, logError)} />}
+                    {logErrorC && <LabelItem color="warning" text={describeClientError(t, logErrorC)} />}
+                    {logErrorS && <LabelItem color="danger" text={describeServerError(t, logErrorS)} />}
                     {logSuccess && (
                       <LabelItem
                         color="success"
@@ -189,6 +207,7 @@ const Register: React.FC = () => {
  * password must contain 1 lowercase letters
  * password must contain 1 non-alpha numeric number
  * password is 8-16 characters with no space
+ * @example K487Ed%w
  */
 const regexPassword = '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$';
 
