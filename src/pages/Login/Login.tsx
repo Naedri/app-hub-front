@@ -5,11 +5,9 @@ import {
   IonContent,
   IonGrid,
   IonInput,
-  IonItem,
   IonLabel,
   IonList,
   IonPage,
-  IonRouterLink,
   IonRow,
 } from '@ionic/react';
 import { useContext, useState } from 'react';
@@ -18,12 +16,13 @@ import { useHistory } from 'react-router';
 
 import Form from '../../components/Form';
 import Header from '../../components/Header';
+import LabelItem from '../../components/LabelItem';
 import Menu from '../../components/Menu';
 import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { pascalToKebab, capitalizeFirstLetter } from '../../utils/format';
+import { pascalToKebab, capitalizeFirstLetter, describeError } from '../../utils/format';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -138,8 +137,17 @@ const Login: React.FC = () => {
 
             <IonRow className="ion-align-items-center">
               <IonCol size="6" offset="3">
-                {logError && <p className="error">{logError.message}</p>}
-                {logSuccess && <p>{t('redirectingToProfile')}</p>}
+                {(logError || logSuccess) && (
+                  <IonList inset>
+                    {logError && <LabelItem color="danger" text={describeError(t, logError)} />}
+                    {logSuccess && (
+                      <LabelItem
+                        color="success"
+                        text={t('redirecting', { to: t('to'), somewhere: t('homePageTitle') })}
+                      />
+                    )}
+                  </IonList>
+                )}
               </IonCol>
             </IonRow>
           </IonGrid>
