@@ -19,5 +19,6 @@
     "connectYou": "Connect you.",
     "noContent": "There is no content.",
     "reloadApp": "Restart the app.",
-    "contact": "contact"
+    "contact": "contact",
+    "openInNewTab": "Open in a new tab."
 }

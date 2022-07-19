@@ -3,7 +3,13 @@ import axios from 'axios';
 
 import type { Access } from '../../types/interfaces/access';
 import type { Application, PrivateApplication, PublicApplication } from '../../types/interfaces/application';
-import type { PrivateAppResponse, AccessResponse, PublicAppResponse, AppResponse } from '../../types/interfaces/rest';
+import type {
+  PrivateAppResponse,
+  AccessResponse,
+  PublicAppResponse,
+  AppResponse,
+  AccessUrlResponse,
+} from '../../types/interfaces/rest';
 import { apiUrl } from '../../utils/constants';
 import Logger from '../../utils/logger';
 
@@ -12,7 +18,7 @@ import { configCredit } from './config';
 const logClassName = 'Service-Rest-Apps';
 
 async function getPublicApps(id = 0): Promise<PublicAppResponse> {
-  Logger.info(logClassName, `getPublicApps.`);
+  Logger.info(logClassName, `getPublicApps with id: ${id}.`);
   const config = configCredit;
   try {
     let apiResponse: AxiosRequestConfig<Application[]>;
@@ -43,7 +49,7 @@ async function getPrivateApps(token = '', id = 0): Promise<PrivateAppResponse> {
 }
 
 async function getPrivateAccess(token = '', id = 0): Promise<AccessResponse> {
-  if (token) Logger.info(logClassName, `getPrivateAccess with token : ${token}.`);
+  if (token) Logger.info(logClassName, `getPrivateAccess with token: ${token} and id: ${id}.`);
   const config = configCredit;
   if (token) {
     config.headers = { Authorization: `Bearer ${token}` };
@@ -120,4 +126,17 @@ function removeDuplicate(privateApp: PrivateApplication[], publicApp: PublicAppl
   return [...uniquePr, ...uniquePuF];
 }
 
-export { getApps };
+async function getAccess(token: string, app: Application): Promise<AccessUrlResponse> {
+  Logger.info(logClassName, `getAccess with token : ${token} and for app: ${JSON.stringify(app)}.`);
+  const config = configCredit;
+  config.headers = { Authorization: `Bearer ${token}` };
+  try {
+    const apiResponse = await axios.get(`${apiUrl}subs/myaccess/url/${app.id}`, config);
+    return { accessUrl: apiResponse.data?.accessUrlTokenized as unknown as string, error: null };
+  } catch (e: any) {
+    Logger.error(logClassName, e.toString());
+    return { accessUrl: undefined, error: e };
+  }
+}
+
+export { getApps, getAccess };

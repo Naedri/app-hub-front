@@ -82,7 +82,7 @@ const Home: React.FC<HomeProps> = () => {
         </IonRefresher>
         <IonList>
           {apps?.length > 0 ? (
-            apps?.map((app) => <AppListItem app={app} key={app.id} />)
+            apps?.map((app) => <AppListItem app={app} key={app.id} token={stateUser?.user?.token} />)
           ) : (
             <AppListInfoItem
               title={t('noContent')}

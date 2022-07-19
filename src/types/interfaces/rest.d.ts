@@ -17,3 +17,4 @@ export type PrivateAppResponse = { apps: PrivateApplication[] | undefined; error
 export type AppResponse = { apps: Application[]; error: ErrorClient | null };
 
 export type AccessResponse = { access: Access[] | undefined; error: ErrorClient | null };
+export type AccessUrlResponse = { accessUrl: string | undefined; error: ErrorClient | null };

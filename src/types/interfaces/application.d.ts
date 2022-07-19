@@ -11,6 +11,6 @@ export type Application = {
 export type PublicApplication = Application;
 
 export type PrivateApplication = Application & {
-  baseUrl: string;
+  baseURL: string;
   accessUrlTokenized?: string;
 };
