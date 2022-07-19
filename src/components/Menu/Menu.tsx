@@ -3,7 +3,7 @@ import type { TFunction } from 'i18next';
 import type { FC } from 'react';
 import React from 'react';
 
-import { capitalizeFirstLetter } from '../../utils/format';
+import { capitalizeFirstLetter } from '../../utils/format.case';
 import MailItem from '../MailItem';
 
 import './Menu.module.css';

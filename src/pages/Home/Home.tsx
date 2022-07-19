@@ -1,5 +1,12 @@
 import type { RefresherEventDetail } from '@ionic/react';
-import { IonContent, IonList, IonPage, IonRefresher, IonRefresherContent, useIonViewWillEnter } from '@ionic/react';
+import {
+  IonContent,
+  IonList,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  useIonViewWillEnter,
+} from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +20,8 @@ import { Page } from '../../types/enums/pages';
 import type { Role } from '../../types/enums/roles';
 import type { Application } from '../../types/interfaces/application';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { formatError, describeServerError, pascalToKebab } from '../../utils/format';
+import { pascalToKebab } from '../../utils/format.case';
+import { formatError, describeServerError } from '../../utils/format.error';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

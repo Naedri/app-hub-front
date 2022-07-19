@@ -24,7 +24,8 @@ import { UserContext } from '../../contexts/user.context';
 import { login, parseUserToken } from '../../services/rest/auth';
 import { Page } from '../../types/enums/pages';
 import type { ErrorFromServer } from '../../types/interfaces/error';
-import { pascalToKebab, capitalizeFirstLetter, describeServerError } from '../../utils/format';
+import { pascalToKebab, capitalizeFirstLetter } from '../../utils/format.case';
+import { describeServerError } from '../../utils/format.error';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

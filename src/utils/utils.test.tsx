@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ErrorFromServer } from '../types/interfaces/error';
 
-import { describeServerError, formatError } from './format';
+import { describeServerError, formatError } from './format.error';
 
 const errorNetwork = {
   message: 'Network Error',

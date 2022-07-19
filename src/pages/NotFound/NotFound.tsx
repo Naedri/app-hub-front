@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import { Page } from '../../types/enums/pages';
-import { pascalToKebab } from '../../utils/format';
+import { pascalToKebab } from '../../utils/format.case';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
