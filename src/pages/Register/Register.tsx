@@ -162,7 +162,7 @@ const Register: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="6" offset="3.5">
+              <IonCol size="5" offset="3.5">
                 <IonLabel>{t('qAlreadyAccount')}</IonLabel>
               </IonCol>
             </IonRow>
@@ -182,15 +182,15 @@ const Register: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="6" offset="3">
+              <IonCol size="5" offset="3.5">
                 {(logErrorC || logErrorS || logSuccess) && (
-                  <IonList inset>
+                  <IonList inset lines="none">
                     {logErrorC && <LabelItem color="warning" text={describeClientError(t, logErrorC)} />}
                     {logErrorS && <LabelItem color="danger" text={describeServerError(t, logErrorS)} />}
                     {logSuccess && (
                       <LabelItem
                         color="success"
-                        text={t('redirecting', { to: t('to'), somewhere: t('homePageTitle') })}
+                        text={t('redirecting', { preposition: t('to'), somewhere: t('homePageTitle') })}
                       />
                     )}
                   </IonList>

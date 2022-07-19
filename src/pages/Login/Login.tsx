@@ -116,7 +116,7 @@ const Login: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="6" offset="3.5">
+              <IonCol size="5" offset="3.5">
                 <IonLabel>{t('qMissingAccount')}</IonLabel>
               </IonCol>
             </IonRow>
@@ -136,14 +136,14 @@ const Login: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="6" offset="3">
+              <IonCol size="5" offset="3.5">
                 {(logError || logSuccess) && (
-                  <IonList inset>
+                  <IonList inset lines="none">
                     {logError && <LabelItem color="danger" text={describeServerError(t, logError)} />}
                     {logSuccess && (
                       <LabelItem
                         color="success"
-                        text={t('redirecting', { to: t('to'), somewhere: t('homePageTitle') })}
+                        text={t('redirecting', { preposition: t('to'), somewhere: t('homePageTitle') })}
                       />
                     )}
                   </IonList>
