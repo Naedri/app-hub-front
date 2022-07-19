@@ -5,10 +5,12 @@ import {
   IonContent,
   IonGrid,
   IonInput,
+  IonItem,
   IonLabel,
   IonList,
   IonPage,
   IonRow,
+  IonSpinner,
 } from '@ionic/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -156,7 +158,8 @@ const Register: React.FC = () => {
             <IonRow className="ion-align-items-center">
               <IonCol size="6" offset="3">
                 <IonButton type="submit" color="primary" expand="full" shape="round" disabled={loading}>
-                  {loading ? t('loading') : t('register')}
+                  {t('register')}
+                  {loading && <IonSpinner name="lines-small" color="primary" />}
                 </IonButton>
               </IonCol>
             </IonRow>
@@ -182,8 +185,17 @@ const Register: React.FC = () => {
             </IonRow>
 
             <IonRow className="ion-align-items-center">
-              <IonCol size="5" offset="3.5">
-                {(logErrorC || logErrorS || logSuccess) && (
+              {loading && (
+                <IonCol size="0.3" offset="5.85">
+                  <IonList lines="none">
+                    <IonItem>
+                      <IonSpinner name="lines-small" color="primary" />
+                    </IonItem>
+                  </IonList>
+                </IonCol>
+              )}
+              {!loading && (logErrorC || logErrorS || logSuccess) && (
+                <IonCol size="5" offset="3.5">
                   <IonList inset lines="none">
                     {logErrorC && <LabelItem color="warning" text={describeClientError(t, logErrorC)} />}
                     {logErrorS && <LabelItem color="danger" text={describeServerError(t, logErrorS)} />}
@@ -194,8 +206,8 @@ const Register: React.FC = () => {
                       />
                     )}
                   </IonList>
-                )}
-              </IonCol>
+                </IonCol>
+              )}
             </IonRow>
           </IonGrid>
         </Form>
