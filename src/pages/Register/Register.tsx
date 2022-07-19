@@ -72,16 +72,19 @@ const Register: React.FC = () => {
     const email: string = (event.target as any).email.value;
     const password: string = (event.target as any).password.value;
     const passwordConfirm: string = (event.target as any).passwordConfirm.value;
+    console.log(isStrong(password) ? 'strong' : 'not strong');
 
-    if (password !== passwordConfirm) {
+    if (!isStrong(password)) {
+      setErrorC({ key: 'passwordStrength' });
       setLoading(false);
-      setErrorC({ key: 'passwordConfirm' });
       return;
     }
-    setErrorC(null);
-
+    if (password !== passwordConfirm) {
+      setErrorC({ key: 'passwordConfirm' });
+      setLoading(false);
+      return;
+    }
     const { user, error } = await register({ email, password });
-
     setLoading(false);
 
     if (user) {
@@ -125,9 +128,9 @@ const Register: React.FC = () => {
                     type="password"
                     required
                     clearOnEdit
-                    minlength={8}
+                    minlength={6}
                     maxlength={16}
-                    pattern={regexPassword}
+                    // pattern={regexPassword.toString().slice(1, -1)}
                   />
                 </IonCard>
               </IonCol>
@@ -142,9 +145,9 @@ const Register: React.FC = () => {
                     type="password"
                     required
                     clearOnEdit
-                    minlength={8}
+                    minlength={6}
                     maxlength={16}
-                    pattern={regexPassword}
+                    // pattern={regexPassword.toString().slice(1, -1)}
                   />
                 </IonCard>
               </IonCol>
@@ -202,13 +205,17 @@ const Register: React.FC = () => {
 };
 
 /**
- * password must contain 1 number (0-9)
- * password must contain 1 uppercase letters
- * password must contain 1 lowercase letters
- * password must contain 1 non-alpha numeric number
- * password is 8-16 characters with no space
- * @example K487Ed%w
+ * password with 6-16 characters with no space must contain at least :
+ * 1 number (0-9)
+ * 1 letter (a-zA-Z)
+ * 1 special character
+ * @example OK : K487Ed%w
+ * @example ko : K487Edw
  */
-const regexPassword = '^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){8,16}$';
+const regexPassword = /^(?=.*[0-9])(?=.*[:;,.!?^*~@#%&§<>$£€])[a-zA-Z0-9:;,.!?^*~@#%&§<>$£€]{6,16}$/;
+
+function isStrong(pwd: string): boolean {
+  return regexPassword.test(pwd);
+}
 
 export default Register;
