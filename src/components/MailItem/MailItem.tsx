@@ -12,9 +12,20 @@ export interface MailItemProps {
   key?: string;
 }
 
+const mail = process.env.react_app_ms_users_front_mail_contact || 'contact@mail.com';
+
 const MailItem: FC<MailItemProps> = ({ label, key }: MailItemProps) => {
   return (
-    <IonItem detail={false} key={key}>
+    <IonItem
+      detail={false}
+      key={key}
+      button
+      href={`mailto:${mail}`}
+      onClick={() => {
+        window.alert(mail);
+        // window?.open(`mailto:${mail}`, '_blank')?.focus();
+      }}
+    >
       <IonIcon icon={sendOutline} slot="start" />
       <IonLabel>{capitalizeFirstLetter(label)}</IonLabel>
     </IonItem>
