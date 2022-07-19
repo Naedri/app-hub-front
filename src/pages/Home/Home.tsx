@@ -1,7 +1,8 @@
 import type { RefresherEventDetail } from '@ionic/react';
 import {
-  IonContent,
+  IonItem,
   IonList,
+  IonContent,
   IonPage,
   IonRefresher,
   IonRefresherContent,
@@ -10,9 +11,9 @@ import {
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AppListInfoItem from '../../components/AppListInfoItem';
-import AppListItem from '../../components/AppListItem';
+import AppDetail from '../../components/AppDetail';
 import Header from '../../components/Header';
+import ItemAlert from '../../components/ItemAlert';
 import Menu from '../../components/Menu';
 import { defaultState as userDefaultState, UserContext } from '../../contexts/user.context';
 import { getApps } from '../../services/rest/apps';
@@ -90,23 +91,28 @@ const Home: React.FC<HomeProps> = () => {
         </IonRefresher>
         <IonList>
           {apps?.length > 0 ? (
-            apps?.map((app) => <AppListItem app={app} key={app.id} token={stateUser?.user?.token} />)
+            apps?.map((app) => {
+              return <AppDetail app={app} key={app.id} token={stateUser?.user?.token} />;
+            })
           ) : (
-            <AppListInfoItem
-              title={t('noContent')}
-              textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
-              textError={logError ? describeServerError(t, logError) : ''}
-            />
+            <IonItem>
+              <ItemAlert
+                title={t('noContent')}
+                textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
+                textError={logError ? describeServerError(t, logError) : ''}
+              />
+            </IonItem>
           )}
-
           {stateUser?.user?.token ? (
             <></>
           ) : (
-            <AppListInfoItem
-              title={t('notConnected')}
-              textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
-              textError={logError ? describeServerError(t, logError) : ''}
-            />
+            <IonItem>
+              <ItemAlert
+                title={t('notConnected')}
+                textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
+                textError={logError ? describeServerError(t, logError) : ''}
+              />
+            </IonItem>
           )}
         </IonList>
       </IonContent>
