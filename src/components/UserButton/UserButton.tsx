@@ -29,6 +29,9 @@ const UserButton: FC<UserButtonProps> = ({ connected = false, disabled = false }
 
   const handleLog = async (disconnect: boolean): Promise<void> => {
     setDisabled(true);
+    if (disconnect) {
+      //TODO remove local storage
+    }
     history.push('/login');
     setDisabled(false);
   };

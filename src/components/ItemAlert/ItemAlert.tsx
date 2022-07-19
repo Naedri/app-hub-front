@@ -1,4 +1,4 @@
-import { IonItem, IonLabel, IonNote } from '@ionic/react';
+import { IonLabel, IonNote } from '@ionic/react';
 import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 
