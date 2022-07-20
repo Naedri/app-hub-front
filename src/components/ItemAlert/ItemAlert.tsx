@@ -1,6 +1,6 @@
-import { IonLabel, IonNote } from '@ionic/react';
+import { IonItem, IonLabel, IonNote } from '@ionic/react';
 import type { FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './ItemAlert.module.css';
 
@@ -14,23 +14,22 @@ const ItemAlert: FC<ItemAlertProps> = ({ title, textHelp, textError }: ItemAlert
   const [help, setHelp] = useState(textHelp);
   const [error, setError] = useState(textError);
 
-  const isFirstRender = useRef(true);
-
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return; // return early if first render
-    }
     setHelp(textHelp);
     setError(textError);
+    return () => {
+      // run only before component is removed from UI
+      setHelp(undefined);
+      setError(undefined);
+    };
   }, [textHelp, textError]);
 
   return (
-    <>
+    <IonItem lines="none">
       <IonLabel className="ion-text-wrap">{title}</IonLabel>
       {textHelp ? <IonNote slot="helper">{help}</IonNote> : <></>}
       {textError ? <IonNote slot="">{error}</IonNote> : <></>}
-    </>
+    </IonItem>
   );
 };
 

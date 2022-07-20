@@ -18,7 +18,7 @@ export interface HeaderProps {
   user?: User;
 }
 
-const Header: FC<HeaderProps> = ({ page, i18n, t, user = undefined }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ page, i18n, t, user }: HeaderProps) => {
   return (
     <IonHeader translucent>
       <IonToolbar>
@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({ page, i18n, t, user = undefined }: HeaderProp
         <IonTitle>{t(mapPageToTitle(page))}</IonTitle>
 
         <IonButtons slot="end">
-          {[Page.Register, Page.Login].includes(page) ? <></> : <UserButton connected={user?.token !== undefined} />}
+          {[Page.Register, Page.Login].includes(page) ? <></> : <UserButton connected={user?.token != undefined} />}
           <LanguageSwitch i18n={i18n} headerTitle={t('languageModify')}></LanguageSwitch>
           <DarkModeButton />
         </IonButtons>

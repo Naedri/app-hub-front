@@ -11,7 +11,7 @@ export interface LabelItemProps {
 
 const LabelItem: FC<LabelItemProps> = ({ color = undefined, text }: LabelItemProps) => {
   return (
-    <IonItem>
+    <IonItem style={{ textAlign: 'center' }}>
       <IonLabel color={color} class="ion-text-wrap">
         {text}
       </IonLabel>

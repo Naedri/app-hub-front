@@ -5,14 +5,13 @@ import {
   IonContent,
   IonGrid,
   IonInput,
-  IonItem,
   IonLabel,
   IonList,
   IonPage,
   IonRow,
   IonSpinner,
 } from '@ionic/react';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 
@@ -130,7 +129,12 @@ const Login: React.FC = () => {
                   color="tertiary"
                   expand="full"
                   shape="round"
-                  onClick={() => history.push('/register')}
+                  onClick={() => {
+                    setLoading(false);
+                    setError(null);
+                    setLogSuccess(false);
+                    history.push('/register');
+                  }}
                   disabled={loading}
                 >
                   {t('signup')}
@@ -140,16 +144,12 @@ const Login: React.FC = () => {
 
             <IonRow className="ion-align-items-center">
               {loading && (
-                <IonCol size="0.3" offset="5.85">
-                  <IonList lines="none">
-                    <IonItem>
-                      <IonSpinner name="lines-small" color="primary" />
-                    </IonItem>
-                  </IonList>
+                <IonCol className="ion-align-self-center" style={{ textAlign: 'center' }}>
+                  <IonSpinner name="lines-small" color="primary" />
                 </IonCol>
               )}
               {!loading && (logError || logSuccess) && (
-                <IonCol size="5" offset="3.5">
+                <IonCol size="6" offset="3">
                   <IonList inset>
                     {logError && <LabelItem color="danger" text={describeServerError(t, logError)} />}
                     {logSuccess && (

@@ -50,11 +50,8 @@ const Register: React.FC = () => {
   const [logErrorS, setErrorS] = useState<ErrorFromServer | null>(null);
   const [logSuccess, setLogSuccess] = useState(false);
 
-  // const { stateUser, dispatchUser } = useContext(UserContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useState<User>();
-
-  // const [showAlert, setShowAlert] = useState<boolean>(false);
-  // const [messageAlert, setMessageAlert] = useState<string>();
 
   const history = useHistory();
   const { t, i18n } = useTranslation('auth');
@@ -81,17 +78,16 @@ const Register: React.FC = () => {
       setLoading(false);
       return;
     }
+    setErrorC(null);
     const { user, error } = await register({ email, password });
     setLoading(false);
 
     if (user) {
-      // dispatchUser({ ...stateUser, user: user });
       setUser(user);
       setErrorS(null);
       setLogSuccess(true);
       history.push('/login');
     } else {
-      // dispatchUser({ ...stateUser, user: undefined });
       setUser(undefined);
       setErrorS(formatError(error));
       setLogSuccess(false);
@@ -171,7 +167,13 @@ const Register: React.FC = () => {
                   color="tertiary"
                   expand="full"
                   shape="round"
-                  onClick={() => history.push('/login')}
+                  onClick={() => {
+                    setUser(undefined);
+                    setErrorC(null);
+                    setErrorS(null);
+                    setLogSuccess(false);
+                    history.push('/login');
+                  }}
                   disabled={loading}
                 >
                   {t('login')}
@@ -181,17 +183,13 @@ const Register: React.FC = () => {
 
             <IonRow className="ion-align-items-center">
               {loading && (
-                <IonCol size="0.3" offset="5.85">
-                  <IonList lines="none">
-                    <IonItem>
-                      <IonSpinner name="lines-small" color="primary" />
-                    </IonItem>
-                  </IonList>
+                <IonCol className="ion-align-self-center" style={{ textAlign: 'center' }}>
+                  <IonSpinner name="lines-small" color="primary" />
                 </IonCol>
               )}
               {!loading && (logErrorC || logErrorS || logSuccess) && (
-                <IonCol size="5" offset="3.5">
-                  <IonList inset lines="none">
+                <IonCol size="6" offset="3">
+                  <IonList inset>
                     {logErrorC && <LabelItem color="warning" text={describeClientError(t, logErrorC)} />}
                     {logErrorS && <LabelItem color="danger" text={describeServerError(t, logErrorS)} />}
                     {logSuccess && (

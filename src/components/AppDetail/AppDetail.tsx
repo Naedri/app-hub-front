@@ -4,11 +4,11 @@ import {
   searchOutline,
   lockOpenOutline,
   lockClosedOutline,
-  reloadOutline,
+  
   openOutline,
 } from 'ionicons/icons';
 import type { FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Application } from '../../types/interfaces/application';
