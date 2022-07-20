@@ -1,12 +1,5 @@
-import { IonIcon, IonLabel, IonButton, IonSpinner, IonItem } from '@ionic/react';
-import {
-  shapesOutline,
-  searchOutline,
-  lockOpenOutline,
-  lockClosedOutline,
-  
-  openOutline,
-} from 'ionicons/icons';
+import { IonIcon, IonLabel, IonButton, IonSpinner } from '@ionic/react';
+import { shapesOutline, searchOutline, lockOpenOutline, lockClosedOutline, openOutline } from 'ionicons/icons';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +40,7 @@ const AppDetail: FC<AppDetailProps> = ({ app, key = app?.id, token, isAccessible
   };
 
   return (
-    <IonItem className="ion-padding" key={key} detail={false}>
+    <>
       <IonIcon slot="start" icon={shapesOutline} color="Light" />
       <IonLabel className="ion-text-wrap">
         <h2>{app.name}</h2>
@@ -89,7 +82,7 @@ const AppDetail: FC<AppDetailProps> = ({ app, key = app?.id, token, isAccessible
         <IonIcon icon={openOutline} slot="icon-only" color="primary" />
       </IonButton>
       {loading && <IonSpinner name="lines-small" color="primary" />}
-    </IonItem>
+    </>
   );
 };
 

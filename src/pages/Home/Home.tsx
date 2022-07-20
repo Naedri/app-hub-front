@@ -1,5 +1,6 @@
 import type { RefresherEventDetail } from '@ionic/react';
 import {
+  IonItem,
   IonRow,
   IonCol,
   IonGrid,
@@ -94,20 +95,22 @@ const Home: React.FC<HomeProps> = () => {
           {apps?.length > 0 ? (
             apps?.map((app) => {
               return (
-                <IonRow className="ion-align-items-center">
-                  <IonCol size="8" offset="2">
-                    <AppDetail
-                      app={app}
-                      token={stateUser?.user?.token}
-                      isAccessible={(app as PrivateApplication)?.baseURL != undefined}
-                    />
+                <IonRow className="ion-justify-content-center" key={app.id}>
+                  <IonCol size="8">
+                    <IonItem className="ion-padding" detail={false}>
+                      <AppDetail
+                        app={app}
+                        token={stateUser?.user?.token}
+                        isAccessible={(app as PrivateApplication)?.baseURL != undefined}
+                      />
+                    </IonItem>
                   </IonCol>
                 </IonRow>
               );
             })
           ) : (
-            <IonRow className="ion-align-items-center">
-              <IonCol size="8" offset="2">
+            <IonRow className="ion-justify-content-center">
+              <IonCol size="6">
                 <ItemAlert
                   title={t('noContent')}
                   textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
@@ -119,8 +122,8 @@ const Home: React.FC<HomeProps> = () => {
           {stateUser?.user?.token ? (
             <></>
           ) : (
-            <IonRow className="ion-align-items-center">
-              <IonCol size="8" offset="2">
+            <IonRow className="ion-justify-content-center">
+              <IonCol size="6">
                 <ItemAlert
                   title={t('notConnected')}
                   textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
