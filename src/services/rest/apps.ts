@@ -131,7 +131,7 @@ async function getAccess(token: string, app: Application): Promise<AccessUrlResp
   const config = configCredit;
   config.headers = { Authorization: `Bearer ${token}` };
   try {
-    const apiResponse = await axios.get(`${apiUrl}subs/myaccess/url/${app.id}`, config);
+    const apiResponse = await axios.get(`${apiUrl}/subs/myaccess/url/${app.id}`, config);
     return { accessUrl: apiResponse.data?.accessUrlTokenized as unknown as string, error: null };
   } catch (e: any) {
     Logger.error(logClassName, e.toString());

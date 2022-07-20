@@ -18,7 +18,7 @@ describe(' App detail specs', () => {
     };
 
     // Act
-    const component = shallow(<AppDetail app={app} />);
+    const component = shallow(<AppDetail app={app} isAccessible={false} />);
 
     // Assert
     expect(component).toMatchSnapshot();

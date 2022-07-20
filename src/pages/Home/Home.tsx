@@ -19,7 +19,7 @@ import { defaultState as userDefaultState, UserContext } from '../../contexts/us
 import { getApps } from '../../services/rest/apps';
 import { Page } from '../../types/enums/pages';
 import type { Role } from '../../types/enums/roles';
-import type { Application } from '../../types/interfaces/application';
+import type { Application, PrivateApplication } from '../../types/interfaces/application';
 import type { ErrorFromServer } from '../../types/interfaces/error';
 import { pascalToKebab } from '../../utils/format.case';
 import { formatError, describeServerError } from '../../utils/format.error';
@@ -92,7 +92,13 @@ const Home: React.FC<HomeProps> = () => {
         <IonList>
           {apps?.length > 0 ? (
             apps?.map((app) => {
-              return <AppDetail app={app} key={app.id} token={stateUser?.user?.token} />;
+              return (
+                <AppDetail
+                  app={app}
+                  token={stateUser?.user?.token}
+                  isAccessible={(app as PrivateApplication)?.baseURL != undefined}
+                />
+              );
             })
           ) : (
             <IonItem>
