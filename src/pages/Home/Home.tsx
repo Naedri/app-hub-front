@@ -1,7 +1,8 @@
 import type { RefresherEventDetail } from '@ionic/react';
 import {
-  IonItem,
-  IonList,
+  IonRow,
+  IonCol,
+  IonGrid,
   IonContent,
   IonPage,
   IonRefresher,
@@ -89,38 +90,46 @@ const Home: React.FC<HomeProps> = () => {
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-        <IonList>
+        <IonGrid>
           {apps?.length > 0 ? (
             apps?.map((app) => {
               return (
-                <AppDetail
-                  app={app}
-                  token={stateUser?.user?.token}
-                  isAccessible={(app as PrivateApplication)?.baseURL != undefined}
-                />
+                <IonRow className="ion-align-items-center">
+                  <IonCol size="8" offset="2">
+                    <AppDetail
+                      app={app}
+                      token={stateUser?.user?.token}
+                      isAccessible={(app as PrivateApplication)?.baseURL != undefined}
+                    />
+                  </IonCol>
+                </IonRow>
               );
             })
           ) : (
-            <IonItem>
-              <ItemAlert
-                title={t('noContent')}
-                textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
-                textError={logError ? describeServerError(t, logError) : ''}
-              />
-            </IonItem>
+            <IonRow className="ion-align-items-center">
+              <IonCol size="8" offset="2">
+                <ItemAlert
+                  title={t('noContent')}
+                  textHelp={logError ? t('reloadApp') : stateUser?.user?.token ? '' : t('contactToSeeApps')}
+                  textError={logError ? describeServerError(t, logError) : ''}
+                />
+              </IonCol>
+            </IonRow>
           )}
           {stateUser?.user?.token ? (
             <></>
           ) : (
-            <IonItem>
-              <ItemAlert
-                title={t('notConnected')}
-                textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
-                textError={logError ? describeServerError(t, logError) : ''}
-              />
-            </IonItem>
+            <IonRow className="ion-align-items-center">
+              <IonCol size="8" offset="2">
+                <ItemAlert
+                  title={t('notConnected')}
+                  textHelp={logError ? t('reloadApp') : t('connectToSeeApps')}
+                  textError={logError ? describeServerError(t, logError) : ''}
+                />
+              </IonCol>
+            </IonRow>
           )}
-        </IonList>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
