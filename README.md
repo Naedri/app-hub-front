@@ -1,12 +1,12 @@
 <p align="center">
   <a alt="React Logo" href="https://react.dev/" target="blank">
-    <img alt="React" src="https://avatars.githubusercontent.com/u/6412038?raw=true" width="60" />
+    <img alt="React" src="https://avatars.githubusercontent.com/u/6412038?raw=true" height="60" />
   </a>
   <a alt="Ionic Logo" href="https://ionicframework.com/" target="blank">
-    <img alt="Ionic" src="https://github.com/ionic-team/ionic-framework/blob/main/.github/assets/logo.png?raw=true" width="60" />
+    <img alt="Ionic" src="https://github.com/ionic-team/ionic-framework/blob/main/.github/assets/logo.png?raw=true" height="60" />
   </a>
   <a alt="TypeScript Logo" href="https://www.typescriptlang.org/" target="blank">
-    <img alt="TypeScript" src="https://static.npmjs.com/255a118f56f5346b97e56325a1217a16.svg" width="60" />
+    <img alt="TypeScript" src="https://static.npmjs.com/255a118f56f5346b97e56325a1217a16.svg" height="60" />
   </a>
 </p>
 
@@ -16,7 +16,7 @@
 
 ## Description
 
-"app-hub-front" is the front-end component of the App Hub project, built using React and Ionic. This repository serves as the user-facing interface for accessing to a curated list of applications. With a modern and responsive design, it provides a seamless experience for users to discover, select, and connect to various applications.
+"app-hub-front" is the front-end for "[app-hub-back](https://github.com/Naedri/app-hub-back)", built with React and Ionic. It offers a responsive, user-friendly interface for browsing, selecting, and connecting to curated applications.
 
 ### Tech Stack
 
