@@ -1,7 +1,7 @@
 # Frontend AppHub build in React with Ionic and TypeScript.
 
-[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
 [![Ionic](https://img.shields.io/badge/Ionic-3880FF?logo=ionic&logoColor=white)](https://ionicframework.com/)
 
 ## Description
