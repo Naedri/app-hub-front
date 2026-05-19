@@ -1,18 +1,8 @@
-<p align="center">
-  <a alt="React Logo" href="https://react.dev/" target="blank">
-    <img alt="React" src="https://avatars.githubusercontent.com/u/6412038?raw=true" height="60" />
-  </a>
-  <a alt="Ionic Logo" href="https://ionicframework.com/" target="blank">
-    <img alt="Ionic" src="https://github.com/ionic-team/ionic-framework/blob/main/.github/assets/logo.png?raw=true" height="60" />
-  </a>
-  <a alt="TypeScript Logo" href="https://www.typescriptlang.org/" target="blank">
-    <img alt="TypeScript" src="https://static.npmjs.com/255a118f56f5346b97e56325a1217a16.svg" height="60" />
-  </a>
-</p>
+# Frontend AppHub build in React with Ionic and TypeScript.
 
-<h2 align="center">
-  Frontend AppHub build in React with Ionic and TypeScript.
-</h2>
+[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+[![Ionic](https://img.shields.io/badge/Ionic-3880FF?logo=ionic&logoColor=white)](https://ionicframework.com/)
 
 ## Description
 
